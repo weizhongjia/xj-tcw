@@ -1,4 +1,4 @@
-package com.msh.tcw.controller;
+package com.msh.tcw.controller.wx;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
