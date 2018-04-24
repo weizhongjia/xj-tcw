@@ -27,7 +27,6 @@ public class WxLoginController {
         final Authentication authentication = authenticationManager.authenticate(
                 new WxSessionToken(code)
         );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = TokenAuthenticationUtils.generateToken((WxSessionToken) authentication);
         return ResultGenerator.genSuccessResult(token);
     }

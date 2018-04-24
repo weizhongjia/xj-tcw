@@ -1,45 +1,35 @@
 package com.msh.tcw.security;
 
+import com.msh.tcw.model.AuthorityName;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.commons.codec.binary.Base64;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.Security;
-import java.security.spec.AlgorithmParameterSpec;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by weizhongjia on 2017/12/23.
  */
 public class TokenAuthenticationUtils {
     private static final String SECRET = "P@ssw02d";            // JWT密码
-    private static final String CLAIM_KEY_SESSIONKEY = "session_key";
-    private static final String CLAIM_KEY_OPENID = "openid";
-    private static final String CLAIM_KEY_UNIONID = "unionid";
+    private static final String CLAIM_KEY_PRINCIPAL = "principal";
+    private static final String CLAIM_KEY_CREDENTIALS = "credentials";
+    private static final String CLAIM_KEY_DETAILS = "details";
 
 
-    public static String generateToken(WxSessionToken token) {
+    public static String generateToken(AbstractAuthenticationToken token) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put(CLAIM_KEY_OPENID, token.getOpenid());
-        claims.put(CLAIM_KEY_SESSIONKEY, token.getSession_key());
-        claims.put(CLAIM_KEY_UNIONID, token.getUnionid());
+        claims.put(CLAIM_KEY_CREDENTIALS, token.getCredentials());
+        claims.put(CLAIM_KEY_PRINCIPAL, token.getPrincipal());
+        claims.put(CLAIM_KEY_DETAILS, token.getDetails());
         return generateToken(claims);
     }
+
+
 
     private static String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
@@ -63,12 +53,27 @@ public class TokenAuthenticationUtils {
 
     public static WxSessionToken getSessionFromToken(String token){
         try {
-            WxSessionToken sessionToken = new WxSessionToken((Collection<GrantedAuthority>)null);
+            List<GrantedAuthority> list = new ArrayList<>(1);
+            list.add(new SimpleGrantedAuthority(AuthorityName.USER.name()));
+            WxSessionToken sessionToken = new WxSessionToken(list);
             final Claims claims = getClaimsFromToken(token);
-            sessionToken.setOpenid((String)claims.get(CLAIM_KEY_OPENID));
-            sessionToken.setSession_key((String)claims.get(CLAIM_KEY_SESSIONKEY));
-            sessionToken.setUnionid((String)claims.get(CLAIM_KEY_UNIONID));
+            sessionToken.setDetails(claims.get(CLAIM_KEY_DETAILS));
             return sessionToken;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static UsernamePasswordAuthenticationToken getAdminSessionFromToken (String token) {
+        try {
+            List<GrantedAuthority> list = new ArrayList<>(1);
+            list.add(new SimpleGrantedAuthority(AuthorityName.ADMIN.name()));
+            final Claims claims = getClaimsFromToken(token);
+            UsernamePasswordAuthenticationToken adminToken = new UsernamePasswordAuthenticationToken(
+                    claims.get(CLAIM_KEY_PRINCIPAL),
+                    claims.get(CLAIM_KEY_CREDENTIALS),
+                    list);
+            return adminToken;
         } catch (Exception e) {
             return null;
         }

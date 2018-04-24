@@ -36,7 +36,7 @@ public class WxUserController {
     @PostMapping
     public Result updateUser(@RequestBody EncryptedData data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
         WxSessionToken token = (WxSessionToken) SecurityContextHolder.getContext().getAuthentication();
-        String decryptedData = WxDecryptUtils.decrypt(data.getEncryptedData(), token.getSession_key(), data.getIv());
+        String decryptedData = WxDecryptUtils.decrypt(data.getEncryptedData(), token.getDetails().getSession_key(), data.getIv());
         WxUserDTO userDTO = JSONObject.parseObject(decryptedData, WxUserDTO.class);
         WxUser user = wxUserService.findBy("openid", userDTO.getOpenId());
         if (user == null) {
