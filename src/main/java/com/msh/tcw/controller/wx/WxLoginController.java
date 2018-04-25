@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/wx/user")
+@RequestMapping("/api/wx/user")
 public class WxLoginController {
 
     @Autowired

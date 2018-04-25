@@ -11,7 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/admin/user")
+@RequestMapping("/api/admin/user")
 public class AdminLoginController {
 
     @Autowired
@@ -25,8 +25,4 @@ public class AdminLoginController {
         return ResultGenerator.genSuccessResult(token);
     }
 
-    @GetMapping
-    public Result get(@RequestHeader(name = "wx-group-token") String token) {
-        return ResultGenerator.genSuccessResult("ok");
-    }
 }

@@ -28,7 +28,7 @@ import java.util.List;
 * Created by CodeGenerator on 2018/01/03.
 */
 @RestController
-@RequestMapping("/wx/user")
+@RequestMapping("/api/wx/user")
 public class WxUserController {
     @Resource
     private WxUserService wxUserService;
