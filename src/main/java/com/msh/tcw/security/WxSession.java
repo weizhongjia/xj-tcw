@@ -15,6 +15,10 @@ public class WxSession {
         this.session_key = session_key;
     }
 
+    public WxSession() {
+
+    }
+
     public String getOpenid() {
         return openid;
     }

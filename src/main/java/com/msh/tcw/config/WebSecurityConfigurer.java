@@ -5,6 +5,7 @@ import com.msh.tcw.security.JWTAdminAuthenticationFilter;
 import com.msh.tcw.security.JWTAuthenticationFilter;
 import com.msh.tcw.security.WxAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -50,18 +51,17 @@ public class WebSecurityConfigurer {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             // 关闭csrf验证
-            http.antMatcher("/wx/**")
+            http.antMatcher("/api/wx/**")
+                    .addFilterBefore(authenticationTokenFilterBean(),
+                            UsernamePasswordAuthenticationFilter.class)
                     .authorizeRequests()
                     // 所有 /login 的POST请求 都放行
-                    .antMatchers(HttpMethod.POST, "/wx/user/_login").permitAll()
+                    .antMatchers(HttpMethod.POST, "/api/wx/user/_login").permitAll()
                     // 所有请求需要身份认证
                     .anyRequest().authenticated();
             http.csrf().disable()
                     // don't create session
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-            // 添加一个过滤器验证其他请求的Token是否合法
-            http.addFilterBefore(authenticationTokenFilterBean(),
-                    UsernamePasswordAuthenticationFilter.class);
             // disable page caching
             http.headers().cacheControl();
         }
@@ -76,6 +76,13 @@ public class WebSecurityConfigurer {
         public JWTAuthenticationFilter authenticationTokenFilterBean() throws Exception {
             return new JWTAuthenticationFilter();
         }
+
+        @Bean
+        public FilterRegistrationBean registration(JWTAuthenticationFilter filter) {
+            FilterRegistrationBean registration = new FilterRegistrationBean(filter);
+            registration.setEnabled(false);
+            return registration;
+        }
     }
 
     @Configuration
@@ -85,18 +92,16 @@ public class WebSecurityConfigurer {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             // 关闭csrf验证
-            http.antMatcher("/admin/**")
+            http.antMatcher("/api/admin/**")
+                    .addFilterBefore(authenticationAdminTokenFilterBean(), UsernamePasswordAuthenticationFilter.class)
                     .authorizeRequests()
                     // 所有 /login 的POST请求 都放行
-                    .antMatchers(HttpMethod.POST, "/admin/user/_login").permitAll()
+                    .antMatchers(HttpMethod.POST, "/api/admin/user/_login").permitAll()
                     // 所有请求需要身份认证
                     .anyRequest().authenticated();
             http.csrf().disable()
                     // don't create session
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-            // 添加一个过滤器验证其他请求的Token是否合法
-            http.addFilterBefore(authenticationAdminTokenFilterBean(),
-                    UsernamePasswordAuthenticationFilter.class);
             // disable page caching
             http.headers().cacheControl();
         }
@@ -110,6 +115,13 @@ public class WebSecurityConfigurer {
         @Bean
         public JWTAdminAuthenticationFilter authenticationAdminTokenFilterBean() throws Exception {
             return new JWTAdminAuthenticationFilter();
+        }
+
+        @Bean
+        public FilterRegistrationBean registration(JWTAdminAuthenticationFilter filter) {
+            FilterRegistrationBean registration = new FilterRegistrationBean(filter);
+            registration.setEnabled(false);
+            return registration;
         }
     }
 

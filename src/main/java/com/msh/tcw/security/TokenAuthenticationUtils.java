@@ -1,9 +1,12 @@
 package com.msh.tcw.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.msh.tcw.model.AuthorityName;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +18,7 @@ import java.util.*;
  * Created by weizhongjia on 2017/12/23.
  */
 public class TokenAuthenticationUtils {
+    private final Logger log = LoggerFactory.getLogger(TokenAuthenticationUtils.class);
     private static final String SECRET = "P@ssw02d";            // JWT密码
     private static final String CLAIM_KEY_PRINCIPAL = "principal";
     private static final String CLAIM_KEY_CREDENTIALS = "credentials";
@@ -57,9 +61,12 @@ public class TokenAuthenticationUtils {
             list.add(new SimpleGrantedAuthority(AuthorityName.USER.name()));
             WxSessionToken sessionToken = new WxSessionToken(list);
             final Claims claims = getClaimsFromToken(token);
-            sessionToken.setDetails(claims.get(CLAIM_KEY_DETAILS));
+            final ObjectMapper mapper = new ObjectMapper(); // jackson's objectmapper
+            final WxSession session = mapper.convertValue(claims.get(CLAIM_KEY_DETAILS), WxSession.class);
+            sessionToken.setDetails(session);
             return sessionToken;
         } catch (Exception e) {
+
             return null;
         }
     }

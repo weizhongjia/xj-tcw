@@ -1,5 +1,6 @@
 package com.msh.tcw.security;
 
+import com.msh.tcw.core.ProjectConstant;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -11,11 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
-    @Value("${jwt.header}")
-    private String tokenHeader;
+    
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        String authToken = request.getHeader(this.tokenHeader);
+        String authToken = request.getHeader(ProjectConstant.JWT_HEADER);
 
         WxSessionToken token = TokenAuthenticationUtils.getSessionFromToken(authToken);
 
