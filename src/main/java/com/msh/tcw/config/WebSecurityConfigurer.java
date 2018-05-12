@@ -57,6 +57,7 @@ public class WebSecurityConfigurer {
                     .authorizeRequests()
                     // 所有 /login 的POST请求 都放行
                     .antMatchers(HttpMethod.POST, "/api/wx/user/_login").permitAll()
+                    .antMatchers("/ws").permitAll()
                     // 所有请求需要身份认证
                     .anyRequest().authenticated();
             http.csrf().disable()
@@ -69,7 +70,7 @@ public class WebSecurityConfigurer {
         @Override
         public void configure(WebSecurity web) throws Exception {
             // AuthenticationTokenFilter will ignore the below paths
-            web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**");
+            web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**", "/ws");
         }
 
         @Bean
@@ -97,6 +98,7 @@ public class WebSecurityConfigurer {
                     .authorizeRequests()
                     // 所有 /login 的POST请求 都放行
                     .antMatchers(HttpMethod.POST, "/api/admin/user/_login").permitAll()
+                    .antMatchers("/ws").permitAll()
                     // 所有请求需要身份认证
                     .anyRequest().authenticated();
             http.csrf().disable()
@@ -109,7 +111,7 @@ public class WebSecurityConfigurer {
         @Override
         public void configure(WebSecurity web) throws Exception {
             // AuthenticationTokenFilter will ignore the below paths
-            web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**");
+            web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**", "/ws");
         }
 
         @Bean

@@ -11,6 +11,7 @@ import com.msh.tcw.model.WxUser;
 import com.msh.tcw.security.WxSessionToken;
 import com.msh.tcw.service.WxUserService;
 import com.msh.tcw.utils.WxDecryptUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +25,9 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-/**
-* Created by CodeGenerator on 2018/01/03.
-*/
 @RestController
 @RequestMapping("/api/wx/user")
+@Slf4j
 public class WxUserController {
     @Resource
     private WxUserService wxUserService;
@@ -37,25 +36,21 @@ public class WxUserController {
     public Result updateUser(@RequestBody EncryptedData data) throws NoSuchPaddingException, UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
         WxSessionToken token = (WxSessionToken) SecurityContextHolder.getContext().getAuthentication();
         String decryptedData = WxDecryptUtils.decrypt(data.getEncryptedData(), token.getDetails().getSession_key(), data.getIv());
+        log.debug(decryptedData);
         WxUserDTO userDTO = JSONObject.parseObject(decryptedData, WxUserDTO.class);
         WxUser user = wxUserService.findBy("openid", userDTO.getOpenId());
+        WxUser userinfo = userDTO.instance();
         if (user == null) {
-           wxUserService.save(userDTO.getInstance());
+           wxUserService.save(userinfo);
         } else {
-            wxUserService.update(userDTO.getInstance());
+            wxUserService.update(userinfo);
         }
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult(userDTO);
     }
 
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         wxUserService.deleteById(id);
-        return ResultGenerator.genSuccessResult();
-    }
-
-    @PutMapping
-    public Result update(@RequestBody WxUser wxUser) {
-        wxUserService.update(wxUser);
         return ResultGenerator.genSuccessResult();
     }
 

@@ -95,7 +95,7 @@ public class WxUserDTO {
         this.watermark = watermark;
     }
 
-    public WxUser getInstance(){
+    public WxUser instance(){
         WxUser user = new WxUser();
         user.setOpenid(openId);
         user.setTimestamp(watermark.getTimestamp());

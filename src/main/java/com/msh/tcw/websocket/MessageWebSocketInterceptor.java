@@ -1,5 +1,8 @@
 package com.msh.tcw.websocket;
 
+import com.msh.tcw.core.ProjectConstant;
+import com.msh.tcw.security.TokenAuthenticationUtils;
+import com.msh.tcw.security.WxSessionToken;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -16,13 +19,12 @@ public class MessageWebSocketInterceptor implements HandshakeInterceptor {
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
         if (request instanceof ServletServerHttpRequest) {
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
-            String siteId = servletRequest.getServletRequest().getParameter("siteId");
-            String userId = servletRequest.getServletRequest().getParameter("userId");
-            if (siteId == null || userId == null) {
-                return false;
+            String token = servletRequest.getServletRequest().getParameter(ProjectConstant.JWT_HEADER);
+            if (token == null) {
+                WxSessionToken userInfo = TokenAuthenticationUtils.getSessionFromToken(token);
+                attributes.put(ProjectConstant.WEBSOCKET_USERINFO_KEY, userInfo);
+                return true;
             }
-            attributes.put("siteId", siteId);
-            attributes.put("userId", userId);
         }
         return true;
     }
