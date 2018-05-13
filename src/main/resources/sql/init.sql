@@ -25,3 +25,12 @@ CREATE TABLE `wx_room` (
   `create_user` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `message` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) NOT NULL DEFAULT 'TEXT',
+  `send_time` bigint unsigned NOT NULL,
+  `open_id` VARCHAR(60) NOT NULL,
+  `room_id` int(11) NOT NULL,
+  `detail` VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -22,7 +22,7 @@ public class MessageDTO {
         return use;
     }
 
-    public void setUse(WxUser use) {
+    public void setUser(WxUser use) {
         this.use = use;
     }
 }
