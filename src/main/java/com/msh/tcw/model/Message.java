@@ -3,7 +3,7 @@ package com.msh.tcw.model;
 /**
  * Created by weizhongjia on 2018/5/6.
  */
-public abstract class Message {
+public class Message<T> {
     private Integer id;
 
     private MessageType type;
@@ -13,6 +13,8 @@ public abstract class Message {
     private long sendTime;
 
     private Integer roomId;
+
+    private T content;
 
     public Integer getId() {
         return id;
@@ -52,5 +54,13 @@ public abstract class Message {
 
     public void setRoomId(Integer roomId) {
         this.roomId = roomId;
+    }
+
+    public T getContent() {
+        return content;
+    }
+
+    public void setContent(T content) {
+        this.content = content;
     }
 }

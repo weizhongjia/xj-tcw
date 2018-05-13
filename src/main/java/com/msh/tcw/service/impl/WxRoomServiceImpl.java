@@ -22,4 +22,10 @@ public class WxRoomServiceImpl extends AbstractService<Room> implements WxRoomSe
     @Resource
     private WxRoomMapper wxRoomMapper;
 
+    public boolean validateRoom(int roomId) {
+        Room room = findById(roomId);
+        long currentTime = System.currentTimeMillis();
+        return room != null && room.getStartTime() < currentTime && room.getEndTime() > currentTime;
+    }
+
 }

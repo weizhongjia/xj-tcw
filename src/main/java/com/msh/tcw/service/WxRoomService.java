@@ -6,4 +6,5 @@ import com.msh.tcw.model.Room;
 
 public interface WxRoomService extends Service<Room> {
 
+    boolean validateRoom(int roomId);
 }
