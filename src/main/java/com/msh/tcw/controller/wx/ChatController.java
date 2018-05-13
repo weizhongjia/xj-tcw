@@ -4,6 +4,7 @@ import com.msh.tcw.core.Result;
 import com.msh.tcw.core.ResultGenerator;
 import com.msh.tcw.dto.MessageDTO;
 import com.msh.tcw.model.Message;
+import com.msh.tcw.security.WxSessionToken;
 import com.msh.tcw.service.MessageService;
 import com.msh.tcw.service.WxRoomService;
 import com.msh.tcw.service.WxUserService;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -25,11 +28,12 @@ public class ChatController {
 
     @MessageMapping("/send/text/{roomId}")
     @SendTo("/topic/room/{roomId}")
-    public Result greeting(@DestinationVariable int roomId, Message message) throws Exception {
+    public Result greeting(@DestinationVariable int roomId, StompHeaderAccessor accessor, Message message) throws Exception {
         if (roomService.validateRoom(roomId)) {
             message.setRoomId(roomId);
             message.setSendTime(System.currentTimeMillis());
-            message.setOpenId("ozrMn4xQ7m60hcJ1ZkW6lJecX6jU");
+            WxSessionToken sessionToken = (WxSessionToken) accessor.getUser();
+            message.setOpenId(sessionToken.getDetails().getOpenid());
             messageService.insertMessage(message);
             MessageDTO messageDTO = new MessageDTO();
             messageDTO.setMessage(message);
