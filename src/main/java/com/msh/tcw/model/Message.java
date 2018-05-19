@@ -1,18 +1,12 @@
 package com.msh.tcw.model;
 
-import com.msh.tcw.model.MessageDetail.MessageDetail;
+import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Data;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 @Data
-@Table(name = "message")
+@TableName("message")
 public class Message {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
 
     private MessageType type;

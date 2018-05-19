@@ -1,9 +1,9 @@
 package com.msh.tcw.core;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.beans.factory.annotation.Autowired;
-import tk.mybatis.mapper.entity.Condition;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -25,27 +25,29 @@ public abstract class AbstractService<T> implements Service<T> {
     }
 
     public void save(T model) {
-        mapper.insertSelective(model);
+        mapper.insert(model);
     }
 
     public void save(List<T> models) {
-        mapper.insertList(models);
+        for (T t : models) {
+            mapper.insertAllColumn(t);
+        }
     }
 
     public void deleteById(Integer id) {
-        mapper.deleteByPrimaryKey(id);
+        mapper.deleteById(id);
     }
 
     public void deleteByIds(String ids) {
-        mapper.deleteByIds(ids);
+        mapper.deleteById(ids);
     }
 
     public void update(T model) {
-        mapper.updateByPrimaryKeySelective(model);
+        mapper.updateById(model);
     }
 
     public T findById(Integer id) {
-        return mapper.selectByPrimaryKey(id);
+        return mapper.selectById(id);
     }
 
     @Override
@@ -61,15 +63,7 @@ public abstract class AbstractService<T> implements Service<T> {
         }
     }
 
-    public List<T> findByIds(String ids) {
-        return mapper.selectByIds(ids);
-    }
-
-    public List<T> findByCondition(Condition condition) {
-        return mapper.selectByCondition(condition);
-    }
-
     public List<T> findAll() {
-        return mapper.selectAll();
+        return mapper.selectList(new EntityWrapper<T>());
     }
 }

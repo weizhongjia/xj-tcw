@@ -1,65 +1,69 @@
 package com.msh.tcw.config;
 
-import com.github.pagehelper.PageHelper;
-import org.apache.ibatis.plugin.Interceptor;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.baomidou.mybatisplus.incrementer.H2KeyGenerator;
+import com.baomidou.mybatisplus.incrementer.IKeyGenerator;
+import com.baomidou.mybatisplus.mapper.ISqlInjector;
+import com.baomidou.mybatisplus.mapper.LogicSqlInjector;
+import com.baomidou.mybatisplus.mapper.MetaObjectHandler;
+import com.msh.tcw.config.mybatis.MyMetaObjectHandler;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternResolver;
-import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 
-import javax.sql.DataSource;
-import java.util.Properties;
+import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
+import com.baomidou.mybatisplus.plugins.PerformanceInterceptor;
+import com.baomidou.mybatisplus.plugins.parser.ISqlParser;
+import com.baomidou.mybatisplus.plugins.parser.tenant.TenantHandler;
+import com.baomidou.mybatisplus.plugins.parser.tenant.TenantSqlParser;
 
-import static com.msh.tcw.core.ProjectConstant.*;
+import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.LongValue;
 
-
-/**
- * Mybatis & Mapper & PageHelper 配置
- */
 @Configuration
+@MapperScan("com.msh.tcw.dao*")
 public class MybatisConfigurer {
 
+    /**
+     * mybatis-plus SQL执行效率插件【生产环境可以关闭】
+     */
     @Bean
-    public SqlSessionFactory sqlSessionFactoryBean(DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
-        factory.setDataSource(dataSource);
-        factory.setTypeAliasesPackage(MODEL_PACKAGE);
+    public PerformanceInterceptor performanceInterceptor() {
+        return new PerformanceInterceptor();
+    }
 
-        //配置分页插件，详情请查阅官方文档
-        PageHelper pageHelper = new PageHelper();
-        Properties properties = new Properties();
-        properties.setProperty("pageSizeZero", "true");//分页尺寸为0时查询所有纪录不再执行分页
-        properties.setProperty("reasonable", "true");//页码<=0 查询第一页，页码>=总页数查询最后一页
-        properties.setProperty("supportMethodsArguments", "true");//支持通过 Mapper 接口参数来传递分页参数
-        pageHelper.setProperties(properties);
-
-        //添加插件
-        factory.setPlugins(new Interceptor[]{pageHelper});
-
-        //添加XML目录
-        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        factory.setMapperLocations(resolver.getResources("classpath*:mapper/*.xml"));
-        return factory.getObject();
+    /**
+     * mybatis-plus分页插件<br>
+     * 文档：http://mp.baomidou.com<br>
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        paginationInterceptor.setLocalPage(true);// 开启 PageHelper 的支持
+        return paginationInterceptor;
     }
 
     @Bean
-    public MapperScannerConfigurer mapperScannerConfigurer() {
-        MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactoryBean");
-        mapperScannerConfigurer.setBasePackage(MAPPER_PACKAGE);
+    public MetaObjectHandler metaObjectHandler(){
+        return new MyMetaObjectHandler();
+    }
 
-        //配置通用Mapper，详情请查阅官方文档
-        Properties properties = new Properties();
-        properties.setProperty("mappers", MAPPER_INTERFACE_REFERENCE);
-        properties.setProperty("notEmpty", "false");//insert、update是否判断字符串类型!='' 即 test="str != null"表达式内是否追加 and str != ''
-        properties.setProperty("IDENTITY", "MYSQL");
-        mapperScannerConfigurer.setProperties(properties);
+    /**
+     * 注入主键生成器
+     */
+    @Bean
+    public IKeyGenerator keyGenerator(){
+        return new H2KeyGenerator();
+    }
 
-        return mapperScannerConfigurer;
+    /**
+     * 注入sql注入器
+     */
+    @Bean
+    public ISqlInjector sqlInjector(){
+        return new LogicSqlInjector();
     }
 
 }
-

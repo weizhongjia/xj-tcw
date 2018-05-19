@@ -1,5 +1,7 @@
 package com.msh.tcw.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.msh.tcw.core.AbstractService;
 import com.msh.tcw.dao.WxRoomMapper;
 import com.msh.tcw.dao.WxUserMapper;
@@ -26,6 +28,10 @@ public class WxRoomServiceImpl extends AbstractService<Room> implements WxRoomSe
         Room room = findById(roomId);
         long currentTime = System.currentTimeMillis();
         return room != null && room.getStartTime() < currentTime && room.getEndTime() > currentTime;
+    }
+
+    public Page<Room> findRoomPage(Page<Room> page){
+        return page.setRecords(wxRoomMapper.selectPage(page, new EntityWrapper<>()));
     }
 
 }

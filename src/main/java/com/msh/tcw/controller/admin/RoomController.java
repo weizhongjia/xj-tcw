@@ -1,7 +1,6 @@
 package com.msh.tcw.controller.admin;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.msh.tcw.core.Result;
 import com.msh.tcw.core.ResultGenerator;
 import com.msh.tcw.core.ServiceException;
@@ -11,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin/room")
@@ -29,11 +27,10 @@ public class RoomController {
     }
 
     @GetMapping
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<Room> list = wxRoomService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
+    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
+
+        Page<Room> list = wxRoomService.findRoomPage(new Page<>(page, size));
+        return ResultGenerator.genSuccessResult(list);
     }
 
     @PutMapping

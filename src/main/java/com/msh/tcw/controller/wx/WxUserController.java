@@ -1,8 +1,7 @@
 package com.msh.tcw.controller.wx;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.msh.tcw.core.Result;
 import com.msh.tcw.core.ResultGenerator;
 import com.msh.tcw.dto.EncryptedData;
@@ -23,7 +22,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/wx/user")
@@ -62,9 +60,7 @@ public class WxUserController {
 
     @GetMapping
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<WxUser> list = wxUserService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
+        Page<WxUser> list = wxUserService.findUserPage(new Page<>(page, size));
+        return ResultGenerator.genSuccessResult(list);
     }
 }

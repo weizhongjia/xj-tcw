@@ -1,5 +1,7 @@
 package com.msh.tcw.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.msh.tcw.core.AbstractService;
 import com.msh.tcw.dao.WxUserMapper;
 import com.msh.tcw.model.WxUser;
@@ -19,4 +21,8 @@ public class WxUserServiceImpl extends AbstractService<WxUser> implements WxUser
     @Resource
     private WxUserMapper wxUserMapper;
 
+    @Override
+    public Page<WxUser> findUserPage(Page<WxUser> page) {
+        return page.setRecords(wxUserMapper.selectPage(page, new EntityWrapper<>()));
+    }
 }

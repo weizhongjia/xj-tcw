@@ -1,17 +1,13 @@
 package com.msh.tcw.controller.admin;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.msh.tcw.core.Result;
 import com.msh.tcw.core.ResultGenerator;
 import com.msh.tcw.model.WxUser;
 import com.msh.tcw.service.WxUserService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
 * Created by CodeGenerator on 2018/01/03.
@@ -30,9 +26,7 @@ public class UserController {
 
     @GetMapping
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<WxUser> list = wxUserService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
+        Page<WxUser> list = wxUserService.findUserPage(new Page<>(page, size));
+        return ResultGenerator.genSuccessResult(list);
     }
 }
