@@ -23,8 +23,6 @@ public class ChatController {
     private WxRoomService roomService;
     @Autowired
     private MessageService messageService;
-    @Autowired
-    private WxUserService userService;
 
     @MessageMapping("/send/text/{roomId}")
     @SendTo("/topic/room/{roomId}")
@@ -35,9 +33,7 @@ public class ChatController {
             WxSessionToken sessionToken = (WxSessionToken) accessor.getUser();
             message.setOpenId(sessionToken.getDetails().getOpenid());
             messageService.insertMessage(message);
-            MessageDTO messageDTO = new MessageDTO();
-            messageDTO.setMessage(message);
-            messageDTO.setUser(userService.findBy("openid", message.getOpenId()));
+            MessageDTO messageDTO = messageService.constructMessageDTO(message);
             return ResultGenerator.genSuccessResult(messageDTO);
         } else {
             return ResultGenerator.genFailResult("房间尚未启用或已经过期");
