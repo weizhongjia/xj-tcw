@@ -27,7 +27,8 @@ public class Swagger2 {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.msh.tcw.controller.wx"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .globalOperationParameters(getPars());
     }
 
     @Bean
@@ -43,7 +44,7 @@ public class Swagger2 {
                 .apis(RequestHandlerSelectors.basePackage("com.msh.tcw.controller.admin"))
                 .paths(PathSelectors.any())
                 .build()
-                .globalOperationParameters(pars);
+                .globalOperationParameters(getPars());
     }
 
     private ApiInfo apiInfo(String title) {
@@ -52,5 +53,12 @@ public class Swagger2 {
                 .description(title + "API")
                 .version("1.0")
                 .build();
+    }
+    private List<Parameter> getPars() {
+        ParameterBuilder tokenPar = new ParameterBuilder();
+        List<Parameter> pars = new ArrayList<Parameter>();
+        tokenPar.name(ProjectConstant.JWT_HEADER).description("令牌").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
+        pars.add(tokenPar.build());
+        return pars;
     }
 }
