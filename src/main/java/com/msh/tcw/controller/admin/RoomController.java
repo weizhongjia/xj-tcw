@@ -44,4 +44,9 @@ public class RoomController {
         }
         return ResultGenerator.genSuccessResult();
     }
+
+    @GetMapping("/{roomId}/bg/image")
+    public Result listBgImages(@PathVariable int roomId) {
+        return ResultGenerator.genSuccessResult(wxRoomService.findRoomBgImages(roomId));
+    }
 }
