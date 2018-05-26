@@ -34,3 +34,38 @@ CREATE TABLE `message` (
   `detail` VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `gift` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `avatar` varchar(255) NOT NULL,
+  `gif` VARCHAR(255) NOT NULL ,
+  `des` VARCHAR(255) NOT NULL ,
+  `price` INT(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `wx_order` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `out_trade_no` VARCHAR(32) NOT NULL UNIQUE ,
+  `openid` varchar(255) NOT NULL,
+  `trade_type` VARCHAR(20) DEFAULT NULL ,
+  `create_time` bigint unsigned NOT NULL,
+  `status` VARCHAR(10) NOT NULL ,
+  `post_time` BIGINT UNSIGNED DEFAULT null,
+  `bank_type` VARCHAR(20) DEFAULT NULL ,
+  `end_time` BIGINT UNSIGNED DEFAULT NULL ,
+  `transaction_id` VARCHAR(12) DEFAULT NULL ,
+  `total_fee` INT(11) DEFAULT NULL ,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `gift_order` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `out_trade_no` VARCHAR(32) NOT NULL UNIQUE ,
+  `openid` varchar(255) NOT NULL,
+  `gift_id` INT(11) NOT NULL ,
+  `price` INT(11) NOT NULL ,
+  `number` INT(11) NOT NULL ,
+  `room_id` INT(11) NOT NULL,
+  `create_time` bigint unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+

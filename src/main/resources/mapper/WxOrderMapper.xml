@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msh.tcw.dao.WxOrderMapper">
+  <resultMap id="BaseResultMap" type="com.msh.tcw.dao.pojo.WxOrderDO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="outTradeNo" jdbcType="VARCHAR" property="outTradeNo" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="tradeType" jdbcType="VARCHAR" property="tradeType" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="postTime" jdbcType="BIGINT" property="postTime" />
+    <result column="bankType" jdbcType="VARCHAR" property="bankType" />
+    <result column="endTime" jdbcType="BIGINT" property="endTime" />
+    <result column="transactionId" jdbcType="VARCHAR" property="transactionId" />
+    <result column="totalFee" jdbcType="INT" property="totalFee" />
+  </resultMap>
+</mapper>

@@ -6,4 +6,5 @@ package com.msh.tcw.utils;
 public class WxPath {
 
     public static final String JSCODE2SESSION = "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code";
+    public static final String UNIFIEDORDER = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 }
