@@ -42,7 +42,7 @@ public class WechatServiceImpl implements WechatService {
     private static final String BODY = "慢生活-礼品";
     private static final String TRADE_TYPE = "JSAPI";
 
-    private static final String APPID_KEY = "paySign";
+    private static final String APPID_KEY = "appId";
     private static final String NONCESTR_KEY = "nonceStr";
     private static final String PACKAGE_KEY = "package";
     private static final String SIGNTYPE_KEY = "signType";
