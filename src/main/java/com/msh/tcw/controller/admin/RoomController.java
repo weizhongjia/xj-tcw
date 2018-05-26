@@ -20,7 +20,7 @@ public class RoomController {
     @GetMapping("/{id}")
     public Result detail(@PathVariable Integer id) {
         Room room = wxRoomService.findById(id);
-        if (room.getStartTime() < System.currentTimeMillis() || room.getEndTime() > System.currentTimeMillis()) {
+        if (room.getStartTime() > System.currentTimeMillis() || room.getEndTime() < System.currentTimeMillis()) {
             throw new ServiceException("房间尚未开始或已经过期");
         }
         return ResultGenerator.genSuccessResult(room);

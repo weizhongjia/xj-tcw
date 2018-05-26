@@ -24,7 +24,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Message> selectMessageByRoomIdAndTime(int roomId, long time) {
-        return messageMapper.selectList(new EntityWrapper<Message>().eq("room_id", roomId).ge("send_time", time));
+        return messageMapper.selectList(new EntityWrapper<Message>().eq("room_id", roomId).gt("send_time", time));
     }
 
     @Override

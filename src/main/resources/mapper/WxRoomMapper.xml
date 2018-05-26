@@ -9,5 +9,7 @@
     <result column="isLimitedByRegion" jdbcType="BIT" property="isLimitedByRegion" />
     <result column="createTime" jdbcType="BIGINT" property="createTime" />
     <result column="createUser" jdbcType="VARCHAR" property="createUser" />
+    <result column="bgMovie" jdbcType="VARCHAR" property="bgMovie" />
+    <result column="bgAudio" jdbcType="VARCHAR" property="bgAudio" />
   </resultMap>
 </mapper>

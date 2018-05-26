@@ -21,4 +21,8 @@ public class Room {
     private long createTime;
 
     private String createUser;
+
+    private String bgMovie;
+
+    private String bgAudio;
 }

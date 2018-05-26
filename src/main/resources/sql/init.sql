@@ -68,4 +68,11 @@ CREATE TABLE `gift_order` (
   `create_time` bigint unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
+ALTER TABLE `wx_room` ADD `bg_movie` VARCHAR(255) DEFAULT NULL;
+ALTER TABLE `wx_room` ADD `bg_audio` VARCHAR(255) DEFAULT NULL;
+CREATE TABLE `room_bg_image` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `room_id` INT(11) UNSIGNED NOT NULL,
+  `src` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
