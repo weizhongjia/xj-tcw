@@ -8,5 +8,6 @@
     <result column="gif" jdbcType="VARCHAR" property="gif" />
     <result column="price" jdbcType="INTEGER" property="price" />
     <result column="des" jdbcType="VARCHAR" property="des" />
+    <result column="costTime" jdbcType="INTEGER" property="costTime" />
   </resultMap>
 </mapper>

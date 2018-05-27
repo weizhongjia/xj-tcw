@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService{
         WxSession session = sessionToken.getDetails();
         Gift gift = giftMapper.selectById(giftId);
         String outTradeNo = WxUtils.getOrderId();
-        GiftOrderDO giftOrderDO = new GiftOrderDO(outTradeNo, session.getOpenid(), giftId, gift.getPrice(), number, roomId);
+        GiftOrderDO giftOrderDO = new GiftOrderDO(outTradeNo, session.getOpenid(), giftId, gift.getPrice(), number, roomId, number * gift.getCostTime());
         giftOrderMapper.insert(giftOrderDO);
         int money = gift.getPrice() * number;
         WxOrderDO wxOrderDO = new WxOrderDO(outTradeNo, session.getOpenid(), WxOrderStatus.CREATED.toString(), money);

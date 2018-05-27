@@ -11,17 +11,19 @@ public class GiftOrderDO {
     private String openid;
     private int giftId;
     private int price;
+    private int costTime;
     private int number;
     private int roomId;
     private long createTime;
 
-    public GiftOrderDO(String outTradeNo, String openid, int giftId, int price, int number, int roomId) {
+    public GiftOrderDO(String outTradeNo, String openid, int giftId, int price, int number, int roomId, int costTime) {
         this.outTradeNo = outTradeNo;
         this.openid = openid;
         this.giftId = giftId;
         this.price = price;
         this.number = number;
         this.roomId = roomId;
+        this.costTime = costTime;
         this.createTime = System.currentTimeMillis();
     }
 

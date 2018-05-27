@@ -12,4 +12,5 @@ public class Gift {
     private String gif;
     private String des;
     private int price;
+    private int costTime;
 }
