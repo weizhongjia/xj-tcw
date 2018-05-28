@@ -30,7 +30,7 @@ public class BapingController {
         List<BapingMessageDTO> dtos = new ArrayList<>(messageList.size());
         for (Message message : messageList) {
             MessageDTO messageDTO = messageService.constructMessageDTO(message);
-            dtos.add(messageDTO.getBapingDTO());
+            dtos.add(new BapingMessageDTO(messageDTO));
         }
         return ResultGenerator.genSuccessResult(dtos);
     }

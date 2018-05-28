@@ -1,5 +1,7 @@
 package com.msh.tcw.dto;
 
+import com.msh.tcw.model.Gift;
+import com.msh.tcw.model.GiftMessageDetail;
 import lombok.Data;
 
 @Data
@@ -20,7 +22,7 @@ public class BapingMessageDTO {
     private String hb_detail= "";
     private String bp_time= "0";
     private String forwho= "";
-    private String extend_params= "";
+    private ExtendParams extend_params;
     private String is_pay= "1";
     private String is_del= "0";
     private String del_user= "";
@@ -31,4 +33,26 @@ public class BapingMessageDTO {
     private String had_save= "0";
     private String had_show= "1";
     private String had_resaved= "0";
+
+    public BapingMessageDTO() {
+    }
+
+    public BapingMessageDTO (MessageDTO messageDTO) {
+        this.id = messageDTO.getMessage().getId();
+        this.openid = messageDTO.getUser().getOpenid();
+        this.avatar = messageDTO.getUser().getAvatarurl();
+        this.content = messageDTO.getMessage().getDetail();
+        this.createtime = messageDTO.getMessage().getSendTime();
+        this.nickname = messageDTO.getUser().getNickname();
+        this.sex = messageDTO.getUser().getGender()?"1":"0";
+        this.type = messageDTO.getMessage().getType().toString().toLowerCase();
+        switch (messageDTO.getMessage().getType()) {
+            case GIFT:
+                GiftMessageDetail detail = messageDTO.getMessage().getGiftMessageDetail();
+                this.extend_params = new GiftExtendParams(detail);
+                break;
+            default:
+                break;
+        }
+    }
 }

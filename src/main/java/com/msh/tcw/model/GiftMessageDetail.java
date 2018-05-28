@@ -12,6 +12,6 @@ public class GiftMessageDetail {
     private String giftAvatar;
     private String giftGif;
     private String giftDes;
-    private String giftNumber;
+    private int giftNumber;
     private int giftTime;
 }
