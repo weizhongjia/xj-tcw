@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msh.tcw.dao.GiftMessageDetailMapper">
+  <resultMap id="BaseResultMap" type="com.msh.tcw.model.GiftMessageDetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="giftId" jdbcType="INTEGER" property="giftId" />
+    <result column="giftName" jdbcType="VARCHAR" property="giftName" />
+    <result column="giftAvatar" jdbcType="VARCHAR" property="giftAvatar" />
+    <result column="giftGif" jdbcType="VARCHAR" property="giftGif" />
+    <result column="gifDes" jdbcType="VARCHAR" property="gifDes" />
+    <result column="giftNumber" jdbcType="INTEGER" property="giftNumber" />
+    <result column="giftTime" jdbcType="INTEGER" property="giftTime" />
+  </resultMap>
+</mapper>

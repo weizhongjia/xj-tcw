@@ -78,3 +78,16 @@ CREATE TABLE `room_bg_image` (
   `src` VARCHAR(255) NOT NULL ,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `message` ADD `detail_id` INT(11) DEFAULT NULL;
+CREATE TABLE `gift_message_detail` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `gift_id` INT(11) UNSIGNED NOT NULL,
+  `gift_name` VARCHAR(255) NOT NULL ,
+  `gift_gif` VARCHAR(255) NOT NULL,
+  `gift_avatar` VARCHAR(255) NOT NULL,
+  `gift_des` VARCHAR(255) NOT NULL,
+  `gift_number` INT(11) NOT NULL,
+  `gift_time` INT(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+

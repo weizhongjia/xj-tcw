@@ -8,5 +8,33 @@
     <result column="sendTime" jdbcType="BIGINT" property="sendTime" />
     <result column="roomId" jdbcType="INTEGER" property="roomId" />
     <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="detailId" jdbcType="INTEGER" property="detailId" />
   </resultMap>
+  <resultMap id="MessageResultMap" type="com.msh.tcw.model.Message">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="send_time" jdbcType="BIGINT" property="sendTime" />
+    <result column="room_id" jdbcType="INTEGER" property="roomId" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="detail_id" jdbcType="INTEGER" property="detailId" />
+    <association property="giftMessageDetail" javaType="com.msh.tcw.model.GiftMessageDetail" resultMap="GiftMessageDetailMap"/>
+  </resultMap>
+
+  <resultMap id="GiftMessageDetailMap" type="com.msh.tcw.model.GiftMessageDetail">
+    <result column="giftDetailId" jdbcType="INTEGER" property="id" />
+    <result column="gift_id" jdbcType="INTEGER" property="giftId" />
+    <result column="gift_name" jdbcType="VARCHAR" property="giftName" />
+    <result column="gift_avatar" jdbcType="VARCHAR" property="giftAvatar" />
+    <result column="gift_gif" jdbcType="VARCHAR" property="giftGif" />
+    <result column="gift_des" jdbcType="VARCHAR" property="giftDes" />
+    <result column="gift_number" jdbcType="INTEGER" property="giftNumber" />
+    <result column="gift_time" jdbcType="INTEGER" property="giftTime" />
+  </resultMap>
+
+  <select id="findMessageByRoomIdAndTime" resultMap="MessageResultMap">
+    select m.id, m.type, m.open_id, m.send_time, m.room_id, m.detail, m.detail_id,
+     g.id AS giftDetailId, g.gift_id, g.gift_name, g.gift_avatar, g.gift_gif, g.gift_des, g.gift_number, g.gift_time
+     from message m left join gift_message_detail g on m.detail_id = g.id where send_time > #{lastTime} AND m.room_id = #{roomId} order by m.id
+  </select>
 </mapper>

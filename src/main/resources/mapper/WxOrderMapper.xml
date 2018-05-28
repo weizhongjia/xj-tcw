@@ -12,6 +12,6 @@
     <result column="bankType" jdbcType="VARCHAR" property="bankType" />
     <result column="endTime" jdbcType="BIGINT" property="endTime" />
     <result column="transactionId" jdbcType="VARCHAR" property="transactionId" />
-    <result column="totalFee" jdbcType="INT" property="totalFee" />
+    <result column="totalFee" jdbcType="INTEGER" property="totalFee" />
   </resultMap>
 </mapper>

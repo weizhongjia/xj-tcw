@@ -1,5 +1,6 @@
 package com.msh.tcw.model;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Data;
@@ -22,4 +23,9 @@ public class Message {
     private Integer roomId;
 
     private String detail;
+
+    private Integer detailId;
+
+    @TableField(exist=false)
+    private GiftMessageDetail giftMessageDetail;
 }
