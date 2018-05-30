@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msh.tcw.dao.RedpackSendListMapper">
+  <resultMap id="BaseResultMap" type="com.msh.tcw.dao.pojo.RedpackSendListDO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="redpack_id" jdbcType="INTEGER" property="redpackId" />
+    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="accept_time" jdbcType="INTEGER" property="acceptTime" />
+  </resultMap>
+
+  <insert id="insertBatch">
+    INSERT INTO redpack_send_list
+    (openid, redpack_id, money, status, accept_time)
+    VALUES
+    <foreach collection ="list" item="item" separator =",">
+      (#{item.openid}, #{item.redpackId}, #{item.money}, #{item.status}, #{item.acceptTime})
+    </foreach >
+  </insert>
+</mapper>

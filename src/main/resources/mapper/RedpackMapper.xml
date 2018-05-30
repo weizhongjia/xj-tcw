@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msh.tcw.dao.RedpackMapper">
+  <resultMap id="BaseResultMap" type="com.msh.tcw.dao.pojo.RedpackDO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="outTradeNo" jdbcType="VARCHAR" property="outTradeNo" />
+    <result column="owner" jdbcType="VARCHAR" property="owner" />
+    <result column="total_money" jdbcType="INTEGER" property="totalMoney" />
+    <result column="total_count" jdbcType="INTEGER" property="totalCount" />
+    <result column="room_id" jdbcType="INTEGER" property="roomId" />
+    <result column="send_time" jdbcType="INTEGER" property="sendTime" />
+    <result column="end_time" jdbcType="INTEGER" property="endTime" />
+  </resultMap>
+</mapper>

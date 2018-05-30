@@ -90,4 +90,32 @@ CREATE TABLE `gift_message_detail` (
   `gift_time` INT(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `redpack` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `out_trade_no` VARCHAR(32) NOT NULL UNIQUE ,
+  `owner` VARCHAR(60) NOT NULL,
+  `total_money` INT(11) NOT NULL,
+  `total_count` INT(11) NOT NULL,
+  `room_id` INT(11) NOT NULL,
+  `send_time` BIGINT NOT NULL,
+  `end_time` BIGINT NOT NULL ,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `redpack_send_lock` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `redpack_id` INT(11) NOT NULL ,
+  `openid` VARCHAR(60) NOT NULL,
+  `send_time` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `redpack_unique_id` (`redpack_id`,`openid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `redpack_send_list` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `openid` VARCHAR(60) DEFAULT NULL,
+  `redpack_id` INT(11) NOT NULL,
+  `money` INT(11) NOT NULL,
+  `status` VARCHAR(10) NOT NULL,
+  `accept_time` BIGINT NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

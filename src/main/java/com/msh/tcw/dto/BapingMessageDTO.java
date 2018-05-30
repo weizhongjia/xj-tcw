@@ -2,6 +2,8 @@ package com.msh.tcw.dto;
 
 import com.msh.tcw.model.Gift;
 import com.msh.tcw.model.GiftMessageDetail;
+import com.msh.tcw.model.Message;
+import com.msh.tcw.model.WxUser;
 import lombok.Data;
 
 @Data
@@ -38,17 +40,19 @@ public class BapingMessageDTO {
     }
 
     public BapingMessageDTO (MessageDTO messageDTO) {
-        this.id = messageDTO.getMessage().getId();
-        this.openid = messageDTO.getUser().getOpenid();
-        this.avatar = messageDTO.getUser().getAvatarurl();
-        this.content = messageDTO.getMessage().getDetail();
-        this.createtime = messageDTO.getMessage().getSendTime();
-        this.nickname = messageDTO.getUser().getNickname();
-        this.sex = messageDTO.getUser().getGender()?"1":"0";
-        this.type = messageDTO.getMessage().getType().toString().toLowerCase();
-        switch (messageDTO.getMessage().getType()) {
+        Message message = messageDTO.getMessage();
+        WxUser user = messageDTO.getUser();
+        this.id = message.getId();
+        this.openid = user.getOpenid();
+        this.avatar = user.getAvatarurl();
+        this.content = message.getDetail();
+        this.createtime = message.getSendTime();
+        this.nickname = user.getNickname();
+        this.sex = user.getGender()?"1":"0";
+        this.type = message.getType().toString().toLowerCase();
+        switch (message.getType()) {
             case GIFT:
-                GiftMessageDetail detail = messageDTO.getMessage().getGiftMessageDetail();
+                GiftMessageDetail detail = message.getGiftMessageDetail();
                 this.extend_params = new GiftExtendParams(detail);
                 break;
             default:
