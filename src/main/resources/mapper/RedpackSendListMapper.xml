@@ -8,6 +8,18 @@
     <result column="money" jdbcType="INTEGER" property="money" />
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="accept_time" jdbcType="INTEGER" property="acceptTime" />
+    <result column="redpack_position" jdbcType="INTEGER" property="redpackPosition" />
+  </resultMap>
+
+  <resultMap id="RedpackUserResultMap" type="com.msh.tcw.dao.pojo.RedpackSendListDO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="redpack_id" jdbcType="INTEGER" property="redpackId" />
+    <result column="money" jdbcType="INTEGER" property="money" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="accept_time" jdbcType="INTEGER" property="acceptTime" />
+    <result column="redpack_position" jdbcType="INTEGER" property="redpackPosition" />
+    <association property="user" javaType="com.msh.tcw.model.WxUser" resultMap="com.msh.tcw.dao.WxUserMapper.BaseResultMap"/>
   </resultMap>
 
   <insert id="insertBatch">
@@ -18,4 +30,16 @@
       (#{item.openid}, #{item.redpackId}, #{item.money}, #{item.status}, #{item.acceptTime})
     </foreach >
   </insert>
+
+  <select id="selectMinId" resultMap="BaseResultMap">
+    SELECT id FROM redpack_send_list WHERE redpack_id = #{redpack_id} ORDER BY id limit 1
+  </select>
+
+  <select id="selectRedpacksAccepted" resultMap="RedpackUserResultMap">
+    select r.id, r.openid, r.redpack_id, r.money, r.status, r.accept_time, r.redpack_position, u.nickName, u.avatarUrl
+    from redpack_send_list r left join wx_user u
+    on r.openid = u.openid
+    where redpack_id = #{redpackId} and status = #{status}
+  </select>
+
 </mapper>

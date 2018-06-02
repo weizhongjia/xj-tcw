@@ -54,6 +54,8 @@ public class BapingMessageDTO {
             case GIFT:
                 GiftMessageDetail detail = message.getGiftMessageDetail();
                 this.extend_params = new GiftExtendParams(detail);
+                this.bp_time = String.valueOf(detail.getGiftTime());
+                this.content = detail.getGiftDes();
                 break;
             default:
                 break;

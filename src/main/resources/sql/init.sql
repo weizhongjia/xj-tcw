@@ -118,4 +118,5 @@ CREATE TABLE `redpack_send_list` (
   `accept_time` BIGINT NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `redpack_send_list` ADD `redpack_position` INT(11) NOT NULL ;
 
