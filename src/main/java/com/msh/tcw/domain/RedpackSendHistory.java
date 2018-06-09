@@ -6,7 +6,7 @@ import com.msh.tcw.domain.enums.RedpackStatus;
 import lombok.Data;
 
 @Data
-@TableName("redpack_send_list")
+@TableName("redpack_send_history")
 public class RedpackSendHistory {
     private Integer id;
     private String openid;

@@ -61,8 +61,8 @@ CREATE TABLE `gift_order` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `out_trade_no` VARCHAR(32) NOT NULL UNIQUE ,
   `openid` varchar(255) NOT NULL,
-  `gift_id` INT(11) NOT NULL ,
-  `price` INT(11) NOT NULL ,
+  `gift_id` INT(11) DEFAULT NULL ,
+  `price` INT(11) DEFAULT NULL ,
   `number` INT(11) NOT NULL ,
   `room_id` INT(11) NOT NULL,
   `create_time` bigint unsigned DEFAULT NULL,
@@ -124,3 +124,4 @@ ALTER TABLE `gift_order` RENAME TO `order`;
 ALTER TABLE `order` ADD `order_type` VARCHAR(10) NOT NULL;
 ALTER TABLE `order` ADD `total_money` INT(11) DEFAULT NULL;
 ALTER TABLE `room_bg_image` RENAME TO `room_image`;
+ALTER TABLE `order` RENAME TO `user_order`;

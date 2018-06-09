@@ -5,7 +5,7 @@ import com.msh.tcw.domain.enums.OrderType;
 import lombok.Data;
 
 @Data
-@TableName("order")
+@TableName("user_order")
 public class Order {
     private Integer id;
     private String outTradeNo;
@@ -27,6 +27,7 @@ public class Order {
         this.price = price;
         this.number = number;
         this.roomId = roomId;
+        this.totalMoney = price * number;
         this.costTime = costTime;
         this.createTime = System.currentTimeMillis();
     }

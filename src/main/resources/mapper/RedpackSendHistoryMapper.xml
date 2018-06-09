@@ -23,21 +23,21 @@
   </resultMap>
 
   <insert id="insertBatch">
-    INSERT INTO redpack_send_list
-    (openid, redpack_id, money, status, accept_time)
+    INSERT INTO redpack_send_history
+    (openid, redpack_id, money, status, accept_time, redpack_position)
     VALUES
     <foreach collection ="list" item="item" separator =",">
-      (#{item.openid}, #{item.redpackId}, #{item.money}, #{item.status}, #{item.acceptTime})
+      (#{item.openid}, #{item.redpackId}, #{item.money}, #{item.status}, #{item.acceptTime}, #{item.redpackPosition})
     </foreach >
   </insert>
 
   <select id="selectMinId" resultMap="BaseResultMap">
-    SELECT id FROM redpack_send_list WHERE redpack_id = #{redpack_id} ORDER BY id limit 1
+    SELECT id FROM redpack_send_history WHERE redpack_id = #{redpack_id} ORDER BY id limit 1
   </select>
 
   <select id="selectRedpacksAccepted" resultMap="RedpackUserResultMap">
     select r.id, r.openid, r.redpack_id, r.money, r.status, r.accept_time, r.redpack_position, u.nickName, u.avatarUrl
-    from redpack_send_list r left join wx_user u
+    from redpack_send_history r left join wx_user u
     on r.openid = u.openid
     where redpack_id = #{redpackId} and status = #{status}
   </select>
