@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.msh.tcw.dao.WxOrderMapper">
-  <resultMap id="BaseResultMap" type="com.msh.tcw.dao.pojo.WxOrderDO">
+  <resultMap id="BaseResultMap" type="com.msh.tcw.domain.WxOrder">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="outTradeNo" jdbcType="VARCHAR" property="outTradeNo" />
     <result column="openid" jdbcType="VARCHAR" property="openid" />

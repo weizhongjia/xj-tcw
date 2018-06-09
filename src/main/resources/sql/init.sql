@@ -119,4 +119,8 @@ CREATE TABLE `redpack_send_list` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ALTER TABLE `redpack_send_list` ADD `redpack_position` INT(11) NOT NULL ;
-
+ALTER TABLE `redpack_send_list` RENAME TO `redpack_send_history`;
+ALTER TABLE `gift_order` RENAME TO `order`;
+ALTER TABLE `order` ADD `order_type` VARCHAR(10) NOT NULL;
+ALTER TABLE `order` ADD `total_money` INT(11) DEFAULT NULL;
+ALTER TABLE `room_bg_image` RENAME TO `room_image`;

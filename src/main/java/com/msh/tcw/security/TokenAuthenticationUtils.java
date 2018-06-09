@@ -1,7 +1,7 @@
 package com.msh.tcw.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.msh.tcw.model.AuthorityName;
+import com.msh.tcw.domain.enums.AuthorityName;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

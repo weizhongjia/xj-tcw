@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.msh.tcw.dao.RedpackSendListMapper">
-  <resultMap id="BaseResultMap" type="com.msh.tcw.dao.pojo.RedpackSendListDO">
+<mapper namespace="com.msh.tcw.dao.RedpackSendHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.msh.tcw.domain.RedpackSendHistory">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="openid" jdbcType="VARCHAR" property="openid" />
     <result column="redpack_id" jdbcType="INTEGER" property="redpackId" />
@@ -11,7 +11,7 @@
     <result column="redpack_position" jdbcType="INTEGER" property="redpackPosition" />
   </resultMap>
 
-  <resultMap id="RedpackUserResultMap" type="com.msh.tcw.dao.pojo.RedpackSendListDO">
+  <resultMap id="RedpackUserResultMap" type="com.msh.tcw.domain.RedpackSendHistory">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="openid" jdbcType="VARCHAR" property="openid" />
     <result column="redpack_id" jdbcType="INTEGER" property="redpackId" />
@@ -19,7 +19,7 @@
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="accept_time" jdbcType="INTEGER" property="acceptTime" />
     <result column="redpack_position" jdbcType="INTEGER" property="redpackPosition" />
-    <association property="user" javaType="com.msh.tcw.model.WxUser" resultMap="com.msh.tcw.dao.WxUserMapper.BaseResultMap"/>
+    <association property="user" javaType="com.msh.tcw.domain.WxUser" resultMap="com.msh.tcw.dao.WxUserMapper.BaseResultMap"/>
   </resultMap>
 
   <insert id="insertBatch">

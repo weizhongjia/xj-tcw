@@ -1,6 +1,6 @@
 package com.msh.tcw.dto;
 
-import com.msh.tcw.dao.pojo.RedpackSendListDO;
+import com.msh.tcw.domain.RedpackSendHistory;
 import lombok.Data;
 
 @Data
@@ -14,7 +14,7 @@ public class RedpackDTO {
     public RedpackDTO() {
     }
 
-    public RedpackDTO(RedpackSendListDO sendListDO){
+    public RedpackDTO(RedpackSendHistory sendListDO){
         this.avatar = sendListDO.getUser().getAvatarurl();
         this.nickname = sendListDO.getUser().getNickname();
         this.money = sendListDO.getMoney();

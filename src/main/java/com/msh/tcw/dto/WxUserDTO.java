@@ -1,7 +1,7 @@
 package com.msh.tcw.dto;
 
 
-import com.msh.tcw.model.WxUser;
+import com.msh.tcw.domain.WxUser;
 
 public class WxUserDTO {
 

@@ -1,6 +1,6 @@
 package com.msh.tcw.dto;
 
-import com.msh.tcw.model.GiftMessageDetail;
+import com.msh.tcw.domain.GiftMessageDetail;
 import lombok.Data;
 
 @Data

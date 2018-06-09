@@ -3,7 +3,8 @@ package com.msh.tcw.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.msh.tcw.core.Service;
-import com.msh.tcw.model.Room;
+import com.msh.tcw.domain.Room;
+
 
 import java.util.List;
 

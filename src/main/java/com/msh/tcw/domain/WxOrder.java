@@ -1,24 +1,24 @@
-package com.msh.tcw.dao.pojo;
+package com.msh.tcw.domain;
 
 import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Data;
 
 @Data
 @TableName("wx_order")
-public class WxOrderDO {
+public class WxOrder {
     private Integer id;
     private String outTradeNo;
     private String openid;
     private String tradeType;
-    private long createTime;
+    private Long createTime;
     private String status;
-    private long postTime;
+    private Long postTime;
     private String bankType;
-    private long endTime;
+    private Long endTime;
     private String transactionId;
-    private int totalFee;
+    private Integer totalFee;
 
-    public WxOrderDO(String outTradeNo, String openid, String status, int totalFee) {
+    public WxOrder(String outTradeNo, String openid, String status, int totalFee) {
         this.outTradeNo = outTradeNo;
         this.openid = openid;
         this.createTime = System.currentTimeMillis();

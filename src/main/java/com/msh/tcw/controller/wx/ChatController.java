@@ -2,8 +2,8 @@ package com.msh.tcw.controller.wx;
 
 import com.msh.tcw.core.Result;
 import com.msh.tcw.core.ResultGenerator;
+import com.msh.tcw.domain.Message;
 import com.msh.tcw.dto.MessageDTO;
-import com.msh.tcw.model.Message;
 import com.msh.tcw.security.WxSessionToken;
 import com.msh.tcw.service.MessageService;
 import com.msh.tcw.service.WxRoomService;

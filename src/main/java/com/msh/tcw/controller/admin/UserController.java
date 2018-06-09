@@ -3,7 +3,7 @@ package com.msh.tcw.controller.admin;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.msh.tcw.core.Result;
 import com.msh.tcw.core.ResultGenerator;
-import com.msh.tcw.model.WxUser;
+import com.msh.tcw.domain.WxUser;
 import com.msh.tcw.service.WxUserService;
 import org.springframework.web.bind.annotation.*;
 

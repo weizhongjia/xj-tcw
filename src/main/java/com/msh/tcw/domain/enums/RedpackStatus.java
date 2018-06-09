@@ -1,4 +1,4 @@
-package com.msh.tcw.model;
+package com.msh.tcw.domain.enums;
 
 public enum RedpackStatus {
     CREATED, ACCEPTED

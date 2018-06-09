@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.msh.tcw.core.AbstractService;
 import com.msh.tcw.dao.WxUserMapper;
-import com.msh.tcw.model.WxUser;
+import com.msh.tcw.domain.WxUser;
 import com.msh.tcw.service.WxUserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,7 +1,7 @@
 package com.msh.tcw.security;
 
 import com.alibaba.fastjson.JSONObject;
-import com.msh.tcw.model.AuthorityName;
+import com.msh.tcw.domain.enums.AuthorityName;
 import com.msh.tcw.service.WechatService;
 import com.msh.tcw.utils.WxPath;
 import lombok.extern.slf4j.Slf4j;

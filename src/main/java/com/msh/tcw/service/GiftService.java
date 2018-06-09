@@ -1,6 +1,7 @@
 package com.msh.tcw.service;
 
-import com.msh.tcw.model.Gift;
+
+import com.msh.tcw.domain.Gift;
 
 import java.util.List;
 

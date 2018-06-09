@@ -3,14 +3,11 @@ package com.msh.tcw.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.msh.tcw.core.AbstractService;
-import com.msh.tcw.dao.RoomBgImageMapper;
+import com.msh.tcw.dao.RoomImageMapper;
 import com.msh.tcw.dao.WxRoomMapper;
-import com.msh.tcw.dao.WxUserMapper;
-import com.msh.tcw.dao.pojo.RoomBgImageDO;
-import com.msh.tcw.model.Room;
-import com.msh.tcw.model.WxUser;
+import com.msh.tcw.domain.Room;
+import com.msh.tcw.domain.RoomImage;
 import com.msh.tcw.service.WxRoomService;
-import com.msh.tcw.service.WxUserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +25,7 @@ public class WxRoomServiceImpl extends AbstractService<Room> implements WxRoomSe
     @Resource
     private WxRoomMapper wxRoomMapper;
     @Resource
-    private RoomBgImageMapper roomBgImageMapper;
+    private RoomImageMapper roomImageMapper;
 
     public boolean validateRoom(int roomId) {
         Room room = findById(roomId);
@@ -42,9 +39,9 @@ public class WxRoomServiceImpl extends AbstractService<Room> implements WxRoomSe
 
     @Override
     public List<String> findRoomBgImages(int roomId) {
-        List<RoomBgImageDO> roomBgImageDOs = roomBgImageMapper.selectList(new EntityWrapper<RoomBgImageDO>().eq("room_id", roomId));
+        List<RoomImage> roomBgImageDOs = roomImageMapper.selectList(new EntityWrapper<RoomImage>().eq("room_id", roomId));
         List<String> srcs = new ArrayList<>(roomBgImageDOs.size());
-        for (RoomBgImageDO images : roomBgImageDOs) {
+        for (RoomImage images : roomBgImageDOs) {
             srcs.add(images.getSrc());
         }
         return srcs;

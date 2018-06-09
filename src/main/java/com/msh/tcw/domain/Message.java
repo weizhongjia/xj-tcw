@@ -1,11 +1,10 @@
-package com.msh.tcw.model;
+package com.msh.tcw.domain;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.msh.tcw.domain.enums.MessageType;
 import lombok.Data;
-
-import java.io.Serializable;
 
 @Data
 @TableName("message")
@@ -28,4 +27,7 @@ public class Message {
 
     @TableField(exist=false)
     private GiftMessageDetail giftMessageDetail;
+
+    @TableField(exist=false)
+    private RedpackMessageDetail redpackMessageDetail;
 }

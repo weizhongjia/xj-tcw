@@ -1,13 +1,10 @@
 package com.msh.tcw.security;
 
-import com.msh.tcw.model.AuthorityName;
+
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class WxSessionToken extends AbstractAuthenticationToken {
 

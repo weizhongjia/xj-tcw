@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.msh.tcw.dao.GiftOrderMapper">
-  <resultMap id="BaseResultMap" type="com.msh.tcw.dao.pojo.GiftOrderDO">
+<mapper namespace="com.msh.tcw.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.msh.tcw.domain.Order">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="outTradeNo" jdbcType="VARCHAR" property="outTradeNo" />
     <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="order_type" jdbcType="VARCHAR" property="orderType" />
     <result column="giftId" jdbcType="INTEGER" property="giftId" />
     <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="total_money" jdbcType="INTEGER" property="totalMoney" />
     <result column="number" jdbcType="INTEGER" property="number" />
     <result column="roomId" jdbcType="INTEGER" property="roomId" />
     <result column="createTime" jdbcType="BIGINT" property="createTime" />

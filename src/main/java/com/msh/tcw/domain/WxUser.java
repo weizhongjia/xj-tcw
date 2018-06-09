@@ -1,4 +1,4 @@
-package com.msh.tcw.model;
+package com.msh.tcw.domain;
 
 import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Data;

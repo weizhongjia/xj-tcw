@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.msh.tcw.dao.GiftMapper">
-  <resultMap id="BaseResultMap" type="com.msh.tcw.model.Gift">
+  <resultMap id="BaseResultMap" type="com.msh.tcw.domain.Gift">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />

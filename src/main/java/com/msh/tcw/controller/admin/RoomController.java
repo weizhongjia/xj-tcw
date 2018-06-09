@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.msh.tcw.core.Result;
 import com.msh.tcw.core.ResultGenerator;
 import com.msh.tcw.core.ServiceException;
-import com.msh.tcw.model.Room;
+import com.msh.tcw.domain.Room;
 import com.msh.tcw.service.WxRoomService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;

@@ -1,14 +1,13 @@
-package com.msh.tcw.dao.pojo;
+package com.msh.tcw.domain;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.msh.tcw.model.RedpackStatus;
-import com.msh.tcw.model.WxUser;
+import com.msh.tcw.domain.enums.RedpackStatus;
 import lombok.Data;
 
 @Data
 @TableName("redpack_send_list")
-public class RedpackSendListDO {
+public class RedpackSendHistory {
     private Integer id;
     private String openid;
     private Integer redpackId;
@@ -20,10 +19,10 @@ public class RedpackSendListDO {
     @TableField(exist=false)
     private WxUser user;
 
-    public RedpackSendListDO() {
+    public RedpackSendHistory() {
     }
 
-    public RedpackSendListDO(int redpackId, int money, RedpackStatus status, int redpackPosition) {
+    public RedpackSendHistory(int redpackId, int money, RedpackStatus status, int redpackPosition) {
         this.redpackId = redpackId;
         this.money = money;
         this.status = status;

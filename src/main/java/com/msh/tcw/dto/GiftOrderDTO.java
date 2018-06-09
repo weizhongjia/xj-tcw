@@ -1,12 +1,13 @@
 package com.msh.tcw.dto;
 
-import com.msh.tcw.model.GiftOrder;
+
+import com.msh.tcw.domain.Order;
 
 public class GiftOrderDTO {
-    private GiftOrder giftOrder;
+    private Order giftOrder;
     private WxPaymentDTO paymentDTO;
 
-    public GiftOrderDTO(GiftOrder giftOrder, WxPaymentDTO paymentDTO) {
+    public GiftOrderDTO(Order giftOrder, WxPaymentDTO paymentDTO) {
         this.giftOrder = giftOrder;
         this.paymentDTO = paymentDTO;
     }
