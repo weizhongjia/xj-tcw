@@ -25,7 +25,7 @@ public class WechatPayController {
 
     @PostMapping("/gift/order")
     public Result payUnifiedorder(@RequestBody PresentGiftDTO pay, ServletRequest request){
-        Order giftOrder = orderService.createGiftOrder(pay.getGiftId(), pay.getNumber(), pay.getRoomId());
+        Order giftOrder = orderService.createGiftOrder(pay.getGiftId(), pay.getNumber(), pay.getRoomId(), pay.getBlessing());
         UnifiedorderResult result = orderService.createWechatUnifiedOrder(giftOrder.getTotalMoney(), "10.254.86.200", giftOrder.getOutTradeNo());
         OrderDTO orderDTO = new OrderDTO(giftOrder, wechatService.genWxPaymentDTO(result));
         return ResultGenerator.genSuccessResult(orderDTO);
@@ -33,7 +33,7 @@ public class WechatPayController {
 
     @PostMapping("/redpack/order")
     public Result redpackOrder(@RequestBody SendRedpackDTO redpackDTO) {
-        Order redpackDO = orderService.createRedpackOrder(redpackDTO.getMoney(), redpackDTO.getNumber(), redpackDTO.getRoomId());
+        Order redpackDO = orderService.createRedpackOrder(redpackDTO.getMoney(), redpackDTO.getNumber(), redpackDTO.getRoomId(), redpackDTO.getBlessing());
         UnifiedorderResult result = orderService.createWechatUnifiedOrder(redpackDO.getTotalMoney(), "10.254.86.200", redpackDO.getOutTradeNo());
         OrderDTO redpackOrderDTO = new OrderDTO(redpackDO, wechatService.genWxPaymentDTO(result));
         return ResultGenerator.genSuccessResult(redpackOrderDTO);
@@ -57,7 +57,7 @@ public class WechatPayController {
 
     @PostMapping("/showtime/order")
     public Result showtimeOrder(@RequestBody ShowtimeDTO showtime) {
-        Order showtimeOrder = orderService.createShowtimeOrder(showtime.getPrice(), showtime.getTime(), showtime.getRoomId());
+        Order showtimeOrder = orderService.createShowtimeOrder(showtime.getPrice(), showtime.getTime(), showtime.getRoomId(), showtime.getBlessing());
         UnifiedorderResult result = orderService.createWechatUnifiedOrder(showtimeOrder.getTotalMoney(), "10.254.86.200", showtimeOrder.getOutTradeNo());
         OrderDTO orderDTO = new OrderDTO(showtimeOrder, wechatService.genWxPaymentDTO(result));
         return ResultGenerator.genSuccessResult(orderDTO);

@@ -7,4 +7,5 @@ public class SendRedpackDTO {
     private int money;
     private int number;
     private int roomId;
+    private String blessing;
 }

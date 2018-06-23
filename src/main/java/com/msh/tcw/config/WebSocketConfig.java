@@ -1,5 +1,6 @@
 package com.msh.tcw.config;
 
+import com.msh.tcw.config.websocket.WebSocketApplicationListener;
 import com.msh.tcw.config.websocket.WebSocketTokenInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,5 +46,9 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
         return new WebSocketTokenInterceptor();
     }
 
+    @Bean
+    public WebSocketApplicationListener webSocketApplicationListener() {
+        return new WebSocketApplicationListener();
+    }
 }
 

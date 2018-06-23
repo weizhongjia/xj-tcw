@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msh.tcw.dao.RoomUserMapper">
+  <resultMap id="BaseResultMap" type="com.msh.tcw.domain.RoomUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="roomId" jdbcType="INTEGER" property="roomId" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="sessionId" jdbcType="VARCHAR" property="sessionId" />
+    <result column="createTime" jdbcType="BIGINT" property="createTime" />
+    <result column="updateTime" jdbcType="BIGINT" property="updateTime" />
+  </resultMap>
+
+  <insert id="insertRoomUser" parameterType="com.msh.tcw.domain.RoomUser">
+    INSERT INTO room_user ( room_id, openid, status, session_id, create_time, update_time )
+    VALUES( #{roomId}, #{openid}, #{status}, #{sessionId} , #{createTime}, #{updateTime} )
+    ON DUPLICATE KEY UPDATE `status` = #{status}, `update_time` = #{updateTime}, `session_id` = #{sessionId}
+  </insert>
+
+  <update id="leaveRoom" parameterType="com.msh.tcw.domain.RoomUser">
+    UPDATE room_user
+    SET status = #{status}, update_time = #{updateTime}
+    WHERE openid = #{openid} AND session_id = #{sessionId}
+  </update>
+
+</mapper>

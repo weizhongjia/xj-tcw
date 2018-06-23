@@ -21,14 +21,18 @@ public class WxSessionToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getCredentials() {
+        WxSession session = getDetails();
+        if (session != null) {
+            return session.getSession_key();
+        }
         return "";
     }
 
     @Override
     public Object getPrincipal() {
-        WxSession session = (WxSession) getDetails();
+        WxSession session = getDetails();
         if (session != null) {
-            return session.getSession_key();
+            return session.getOpenid();
         }
         return "";
     }

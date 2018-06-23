@@ -1,6 +1,7 @@
 package com.msh.tcw.config.websocket;
 
 import com.msh.tcw.core.ProjectConstant;
+import com.msh.tcw.domain.enums.RoomUserStatus;
 import com.msh.tcw.security.TokenAuthenticationUtils;
 import com.msh.tcw.security.WxSessionToken;
 import com.msh.tcw.service.WxRoomService;
@@ -11,6 +12,9 @@ import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptorAdapter;
 import org.springframework.messaging.support.MessageHeaderAccessor;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class WebSocketTokenInterceptor extends ChannelInterceptorAdapter {
@@ -41,6 +45,10 @@ public class WebSocketTokenInterceptor extends ChannelInterceptorAdapter {
                 if (!roomService.validateRoom(roomId)) {
                     throw new IllegalArgumentException("房间尚未创建或已经被关闭");
                 }
+                Map<String, Object> attributes = new HashMap<>(1);
+                attributes.put(ProjectConstant.ROOM_ID, roomId);
+                accessor.setSessionAttributes(attributes);
+                roomService.upsertRoomUser(accessor.getUser().getName(), roomId, RoomUserStatus.ENTERED, accessor.getSessionId());
             }
         }
         //不是首次连接，已经成功登陆

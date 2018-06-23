@@ -7,4 +7,5 @@ public class PresentGiftDTO {
     private int giftId;
     private int number;
     private int roomId;
+    private String blessing;
 }

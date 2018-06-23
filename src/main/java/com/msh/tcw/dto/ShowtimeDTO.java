@@ -7,4 +7,5 @@ public class ShowtimeDTO {
     private int time;
     private int price;
     private int roomId;
+    private String blessing;
 }

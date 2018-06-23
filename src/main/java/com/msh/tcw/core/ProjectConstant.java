@@ -11,4 +11,5 @@ public final class ProjectConstant {
     public static final String JWT_HEADER = "wx-group-token";
     public static final String MAPPER_INTERFACE_REFERENCE = BASE_PACKAGE + ".core.Mapper";//Mapper插件基础接口的完全限定名
     public static final String WEBSOCKET_USERINFO_KEY = "user";
+    public static final String ROOM_ID = "roomId";
 }

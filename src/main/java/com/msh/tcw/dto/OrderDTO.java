@@ -6,11 +6,11 @@ import lombok.Data;
 
 @Data
 public class OrderDTO {
-    private Order giftOrder;
+    private Order order;
     private WxPaymentDTO paymentDTO;
 
-    public OrderDTO(Order giftOrder, WxPaymentDTO paymentDTO) {
-        this.giftOrder = giftOrder;
+    public OrderDTO(Order order, WxPaymentDTO paymentDTO) {
+        this.order = order;
         this.paymentDTO = paymentDTO;
     }
 }

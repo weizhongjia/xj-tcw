@@ -19,11 +19,12 @@ public class Order {
     private Integer totalMoney;
     private Integer roomId;
     private Long createTime;
+    private String blessing;
 
     public Order() {
     }
 
-    public Order(OrderType orderType, Integer giftId, Integer price, Integer costTime, Integer number, Integer totalMoney, Integer roomId) {
+    public Order(OrderType orderType, Integer giftId, Integer price, Integer costTime, Integer number, Integer totalMoney, Integer roomId, String blessing) {
         this.orderType = orderType;
         this.giftId = giftId;
         this.price = price;
@@ -32,5 +33,6 @@ public class Order {
         this.totalMoney = totalMoney;
         this.roomId = roomId;
         this.createTime = System.currentTimeMillis();
+        this.blessing = blessing;
     }
 }

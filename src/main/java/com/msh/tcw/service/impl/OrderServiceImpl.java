@@ -38,9 +38,9 @@ public class OrderServiceImpl implements OrderService{
     private RedpackSendLockMapper redpackSendLockMapper;
 
     @Override
-    public Order createGiftOrder(int giftId, int number, int roomId) {
+    public Order createGiftOrder(int giftId, int number, int roomId, String blessing) {
         Gift gift = giftMapper.selectById(giftId);
-        Order order = new Order(OrderType.GIFT, giftId, gift.getPrice(), gift.getCostTime() * number, number, gift.getPrice() * number, roomId);
+        Order order = new Order(OrderType.GIFT, giftId, gift.getPrice(), gift.getCostTime() * number, number, gift.getPrice() * number, roomId, blessing);
         createOrder(order);
         return order;
     }
@@ -48,8 +48,8 @@ public class OrderServiceImpl implements OrderService{
 
 
     @Override
-    public Order createRedpackOrder(int money, int number, int roomId) {
-        Order order = new Order(OrderType.REDPACK, null, null, null, number, money, roomId);
+    public Order createRedpackOrder(int money, int number, int roomId, String blessing) {
+        Order order = new Order(OrderType.REDPACK, null, null, null, number, money, roomId, blessing);
         createOrder(order);
         RedPackage redPackage = new RedPackage(number, (double)money / 100);
         List<RedpackSendHistory> redpackSendListDOList = new ArrayList<>(number);
@@ -64,8 +64,8 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Order createShowtimeOrder(int money, int time, int roomId) {
-        Order order = new Order(OrderType.SHOWTIME, null, null, time, null, money, roomId);
+    public Order createShowtimeOrder(int money, int time, int roomId, String blessing) {
+        Order order = new Order(OrderType.SHOWTIME, null, null, time, null, money, roomId, blessing);
         createOrder(order);
         return order;
     }
