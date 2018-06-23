@@ -3,10 +3,7 @@ package com.msh.tcw.controller.wx;
 import com.msh.tcw.core.Result;
 import com.msh.tcw.core.ResultGenerator;
 import com.msh.tcw.domain.Order;
-import com.msh.tcw.dto.GiftOrderDTO;
-import com.msh.tcw.dto.PresentGiftDTO;
-import com.msh.tcw.dto.RedpackOrderDTO;
-import com.msh.tcw.dto.SendRedpackDTO;
+import com.msh.tcw.dto.*;
 import com.msh.tcw.service.OrderService;
 import com.msh.tcw.service.WechatService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,15 +27,15 @@ public class WechatPayController {
     public Result payUnifiedorder(@RequestBody PresentGiftDTO pay, ServletRequest request){
         Order giftOrder = orderService.createGiftOrder(pay.getGiftId(), pay.getNumber(), pay.getRoomId());
         UnifiedorderResult result = orderService.createWechatUnifiedOrder(giftOrder.getTotalMoney(), "10.254.86.200", giftOrder.getOutTradeNo());
-        GiftOrderDTO giftOrderDTO = new GiftOrderDTO(giftOrder, wechatService.genWxPaymentDTO(result));
-        return ResultGenerator.genSuccessResult(giftOrderDTO);
+        OrderDTO orderDTO = new OrderDTO(giftOrder, wechatService.genWxPaymentDTO(result));
+        return ResultGenerator.genSuccessResult(orderDTO);
     }
 
     @PostMapping("/redpack/order")
     public Result redpackOrder(@RequestBody SendRedpackDTO redpackDTO) {
         Order redpackDO = orderService.createRedpackOrder(redpackDTO.getMoney(), redpackDTO.getNumber(), redpackDTO.getRoomId());
         UnifiedorderResult result = orderService.createWechatUnifiedOrder(redpackDO.getTotalMoney(), "10.254.86.200", redpackDO.getOutTradeNo());
-        RedpackOrderDTO redpackOrderDTO = new RedpackOrderDTO(redpackDO, wechatService.genWxPaymentDTO(result));
+        OrderDTO redpackOrderDTO = new OrderDTO(redpackDO, wechatService.genWxPaymentDTO(result));
         return ResultGenerator.genSuccessResult(redpackOrderDTO);
     }
 
@@ -56,5 +53,13 @@ public class WechatPayController {
     public Result paymentNotify() {
         log.info("wechat pay notify callback comming");
         return ResultGenerator.genSuccessResult();
+    }
+
+    @PostMapping("/showtime/order")
+    public Result showtimeOrder(@RequestBody ShowtimeDTO showtime) {
+        Order showtimeOrder = orderService.createShowtimeOrder(showtime.getPrice(), showtime.getTime(), showtime.getRoomId());
+        UnifiedorderResult result = orderService.createWechatUnifiedOrder(showtimeOrder.getTotalMoney(), "10.254.86.200", showtimeOrder.getOutTradeNo());
+        OrderDTO orderDTO = new OrderDTO(showtimeOrder, wechatService.genWxPaymentDTO(result));
+        return ResultGenerator.genSuccessResult(orderDTO);
     }
 }

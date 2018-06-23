@@ -2,6 +2,7 @@ package com.msh.tcw.domain;
 
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.msh.tcw.domain.enums.OrderType;
+import io.swagger.models.auth.In;
 import lombok.Data;
 
 @Data
@@ -19,29 +20,17 @@ public class Order {
     private Integer roomId;
     private Long createTime;
 
-    public Order(String outTradeNo, String openid, OrderType orderType, int giftId, int price, int number, int roomId, int costTime) {
-        this.outTradeNo = outTradeNo;
-        this.openid = openid;
+    public Order() {
+    }
+
+    public Order(OrderType orderType, Integer giftId, Integer price, Integer costTime, Integer number, Integer totalMoney, Integer roomId) {
         this.orderType = orderType;
         this.giftId = giftId;
         this.price = price;
-        this.number = number;
-        this.roomId = roomId;
-        this.totalMoney = price * number;
         this.costTime = costTime;
-        this.createTime = System.currentTimeMillis();
-    }
-
-    public Order(String outTradeNo, String openid, OrderType orderType, Integer number, Integer totalMoney, Integer roomId) {
-        this.outTradeNo = outTradeNo;
-        this.openid = openid;
-        this.orderType = orderType;
         this.number = number;
         this.totalMoney = totalMoney;
         this.roomId = roomId;
         this.createTime = System.currentTimeMillis();
-    }
-
-    public Order() {
     }
 }

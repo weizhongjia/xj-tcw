@@ -39,12 +39,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Order createGiftOrder(int giftId, int number, int roomId) {
-        WxSessionToken sessionToken = (WxSessionToken) SecurityContextHolder.getContext().getAuthentication();
-        WxSession session = sessionToken.getDetails();
         Gift gift = giftMapper.selectById(giftId);
-        String outTradeNo = WxUtils.getOrderId();
-        Order order = new Order(outTradeNo, session.getOpenid(), OrderType.GIFT, giftId, gift.getPrice(), number, roomId, number * gift.getCostTime());
-        orderMapper.insert(order);
+        Order order = new Order(OrderType.GIFT, giftId, gift.getPrice(), gift.getCostTime() * number, number, gift.getPrice() * number, roomId);
+        createOrder(order);
         return order;
     }
 
@@ -52,11 +49,8 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Order createRedpackOrder(int money, int number, int roomId) {
-        WxSessionToken sessionToken = (WxSessionToken) SecurityContextHolder.getContext().getAuthentication();
-        WxSession session = sessionToken.getDetails();
-        String outTradeNo = WxUtils.getOrderId();
-        Order order = new Order(outTradeNo, session.getOpenid(), OrderType.REDPACK, number, money, roomId);
-        orderMapper.insert(order);
+        Order order = new Order(OrderType.REDPACK, null, null, null, number, money, roomId);
+        createOrder(order);
         RedPackage redPackage = new RedPackage(number, (double)money / 100);
         List<RedpackSendHistory> redpackSendListDOList = new ArrayList<>(number);
         int i = 0;
@@ -67,6 +61,22 @@ public class OrderServiceImpl implements OrderService{
         }
         redpackSendHistoryMapper.insertBatch(redpackSendListDOList);
         return order;
+    }
+
+    @Override
+    public Order createShowtimeOrder(int money, int time, int roomId) {
+        Order order = new Order(OrderType.SHOWTIME, null, null, time, null, money, roomId);
+        createOrder(order);
+        return order;
+    }
+
+    private void createOrder(Order order){
+        WxSessionToken sessionToken = (WxSessionToken) SecurityContextHolder.getContext().getAuthentication();
+        WxSession session = sessionToken.getDetails();
+        String outTradeNo = WxUtils.getOrderId();
+        order.setOpenid(session.getOpenid());
+        order.setOutTradeNo(outTradeNo);
+        orderMapper.insert(order);
     }
 
     @Override

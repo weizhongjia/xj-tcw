@@ -1,15 +1,16 @@
 package com.msh.tcw.dto;
 
+
 import com.msh.tcw.domain.Order;
 import lombok.Data;
 
 @Data
-public class RedpackOrderDTO {
-    private Order redpack;
+public class OrderDTO {
+    private Order giftOrder;
     private WxPaymentDTO paymentDTO;
 
-    public RedpackOrderDTO(Order redpack, WxPaymentDTO paymentDTO) {
-        this.redpack = redpack;
+    public OrderDTO(Order giftOrder, WxPaymentDTO paymentDTO) {
+        this.giftOrder = giftOrder;
         this.paymentDTO = paymentDTO;
     }
 }
