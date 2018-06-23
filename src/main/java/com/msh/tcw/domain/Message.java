@@ -29,5 +29,5 @@ public class Message {
     private GiftMessageDetail giftMessageDetail;
 
     @TableField(exist=false)
-    private RedpackMessageDetail redpackMessageDetail;
+    private Order orderDetail;
 }

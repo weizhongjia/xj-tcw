@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface MessageService {
     void insertMessage(Message message);
-    List<Message> selectMessageByRoomIdAndTime(int roomId, long time);
+    List<MessageDTO> selectMessageByRoomIdAndTime(int roomId, long time);
     MessageDTO constructMessageDTO(Message message);
 }

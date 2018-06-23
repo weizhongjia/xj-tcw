@@ -26,11 +26,10 @@ public class BapingController {
 
     @GetMapping("/more/{room}/{lastTime}")
     public Result more(@PathVariable int room, @PathVariable long lastTime) {
-        List<Message> messageList = messageService.selectMessageByRoomIdAndTime(room, lastTime);
+        List<MessageDTO> messageList = messageService.selectMessageByRoomIdAndTime(room, lastTime);
         List<BapingMessageDTO> dtos = new ArrayList<>(messageList.size());
-        for (Message message : messageList) {
-            MessageDTO messageDTO = messageService.constructMessageDTO(message);
-            dtos.add(new BapingMessageDTO(messageDTO));
+        for (MessageDTO message : messageList) {
+            dtos.add(new BapingMessageDTO(message));
         }
         return ResultGenerator.genSuccessResult(dtos);
     }
