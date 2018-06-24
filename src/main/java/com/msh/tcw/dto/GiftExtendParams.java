@@ -1,6 +1,7 @@
 package com.msh.tcw.dto;
 
 import com.msh.tcw.domain.GiftMessageDetail;
+import com.msh.tcw.domain.Order;
 import lombok.Data;
 
 @Data
@@ -18,12 +19,12 @@ public class GiftExtendParams implements ExtendParams {
     private String to_sex = "1";
     private int gift_nums;
 
-    public GiftExtendParams(GiftMessageDetail detail) {
+    public GiftExtendParams(Order detail) {
         this.gift_name = detail.getGiftName();
-        this.gift_times = detail.getGiftTime();
+        this.gift_times = detail.getCostTime();
         this.gift_avatar = detail.getGiftAvatar();
         this.gift_gif = detail.getGiftGif();
-        this.gift_des = detail.getGiftDes();
-        this.gift_nums = detail.getGiftNumber();
+        this.gift_des = detail.getBlessing();
+        this.gift_nums = detail.getNumber();
     }
 }

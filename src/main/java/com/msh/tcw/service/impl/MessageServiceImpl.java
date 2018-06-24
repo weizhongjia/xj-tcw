@@ -1,9 +1,11 @@
 package com.msh.tcw.service.impl;
 
 import com.msh.tcw.core.ServiceException;
+import com.msh.tcw.dao.GiftMapper;
 import com.msh.tcw.dao.GiftMessageDetailMapper;
 import com.msh.tcw.dao.MessageMapper;
 import com.msh.tcw.dao.OrderMapper;
+import com.msh.tcw.domain.Gift;
 import com.msh.tcw.domain.GiftMessageDetail;
 import com.msh.tcw.domain.Message;
 import com.msh.tcw.domain.WxUser;
@@ -26,32 +28,12 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private WxUserService userService;
     @Autowired
-    private GiftMessageDetailMapper giftMessageDetailMapper;
-    @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private GiftMapper giftMapper;
     @Override
     public void insertMessage(Message message) {
-        switch (message.getType()) {
-            case GIFT:
-                int detailId = insertGiftMessageDetail(message.getGiftMessageDetail());
-                message.setDetailId(detailId);
-                break;
-            default:
-                break;
-        }
         messageMapper.insert(message);
-    }
-
-    private int insertGiftMessageDetail(GiftMessageDetail detail) {
-        if (detail == null) {
-            throw new ServiceException("GIFT 类型消息，礼物信息不能为空");
-        }
-        int affectedRow = giftMessageDetailMapper.insert(detail);
-        if (affectedRow == 0) {
-            throw new ServiceException("数据插入失败");
-        }
-        return detail.getId();
-
     }
 
     @Override
@@ -73,8 +55,14 @@ public class MessageServiceImpl implements MessageService {
         List<MessageDTO> messageDTOs = new ArrayList<>(messages.size());
         for (Message message : messages) {
             MessageDTO messageDTO = new MessageDTO();
-            if (message.getType().equals(MessageType.REDPACK) || message.getType().equals(MessageType.SHOWTIME)){
+            if (message.getType().equals(MessageType.REDPACK) || message.getType().equals(MessageType.SHOWTIME) || message.getType().equals(MessageType.GIFT)){
                 message.setOrderDetail(orderMapper.selectById(message.getDetailId()));
+            }
+            if (message.getType().equals(MessageType.GIFT)) {
+                Gift gift = giftMapper.selectById(message.getOrderDetail().getGiftId());
+                message.getOrderDetail().setGiftName(gift.getName());
+                message.getOrderDetail().setGiftAvatar(gift.getAvatar());
+                message.getOrderDetail().setGiftGif(gift.getGif());
             }
             messageDTO.setMessage(message);
             WxUser user = userMap.get(message.getOpenId());

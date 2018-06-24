@@ -14,5 +14,7 @@
     <result column="createTime" jdbcType="BIGINT" property="createTime" />
     <result column="costTime" jdbcType="INTEGER" property="costTime" />
     <result column="blessing" jdbcType="VARCHAR" property="blessing" />
+    <result column="showtime_type" jdbcType="VARCHAR" property="showtimeType" />
+    <result column="showtime_src" jdbcType="VARCHAR" property="showtimeSrc" />
   </resultMap>
 </mapper>

@@ -26,8 +26,5 @@ public class Message {
     private Integer detailId;
 
     @TableField(exist=false)
-    private GiftMessageDetail giftMessageDetail;
-
-    @TableField(exist=false)
     private Order orderDetail;
 }

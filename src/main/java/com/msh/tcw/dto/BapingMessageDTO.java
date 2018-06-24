@@ -3,6 +3,7 @@ package com.msh.tcw.dto;
 
 import com.msh.tcw.domain.GiftMessageDetail;
 import com.msh.tcw.domain.Message;
+import com.msh.tcw.domain.Order;
 import com.msh.tcw.domain.WxUser;
 import lombok.Data;
 
@@ -54,10 +55,10 @@ public class BapingMessageDTO {
         this.type = message.getType().toString().toLowerCase();
         switch (message.getType()) {
             case GIFT:
-                GiftMessageDetail detail = message.getGiftMessageDetail();
+                Order detail = message.getOrderDetail();
                 this.extend_params = new GiftExtendParams(detail);
-                this.bp_time = String.valueOf(detail.getGiftTime());
-                this.content = detail.getGiftDes();
+                this.bp_time = String.valueOf(detail.getCostTime());
+                this.content = detail.getBlessing();
                 break;
             default:
                 break;

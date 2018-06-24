@@ -1,7 +1,9 @@
 package com.msh.tcw.domain;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.msh.tcw.domain.enums.OrderType;
+import com.msh.tcw.domain.enums.ShowtimeType;
 import io.swagger.models.auth.In;
 import lombok.Data;
 
@@ -20,6 +22,14 @@ public class Order {
     private Integer roomId;
     private Long createTime;
     private String blessing;
+    private String showtimeSrc;
+    private ShowtimeType showtimeType;
+    @TableField(exist=false)
+    private String giftName;
+    @TableField(exist=false)
+    private String giftGif;
+    @TableField(exist=false)
+    private String giftAvatar;
 
     public Order() {
     }

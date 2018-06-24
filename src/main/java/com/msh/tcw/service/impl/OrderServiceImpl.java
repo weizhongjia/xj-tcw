@@ -5,6 +5,7 @@ import com.msh.tcw.dao.*;
 import com.msh.tcw.domain.*;
 import com.msh.tcw.domain.enums.OrderType;
 import com.msh.tcw.domain.enums.RedpackStatus;
+import com.msh.tcw.domain.enums.ShowtimeType;
 import com.msh.tcw.domain.enums.WxOrderStatus;
 import com.msh.tcw.dto.RedpackDTO;
 import com.msh.tcw.security.WxSession;
@@ -64,8 +65,10 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Order createShowtimeOrder(int money, int time, int roomId, String blessing) {
+    public Order createShowtimeOrder(int money, int time, int roomId, String blessing, ShowtimeType type, String src) {
         Order order = new Order(OrderType.SHOWTIME, null, null, time, null, money, roomId, blessing);
+        order.setShowtimeSrc(src);
+        order.setShowtimeType(type);
         createOrder(order);
         return order;
     }
