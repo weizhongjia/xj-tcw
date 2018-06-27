@@ -9,4 +9,5 @@ public interface MessageService {
     void insertMessage(Message message);
     List<MessageDTO> selectMessageByRoomIdAndTime(int roomId, long time);
     MessageDTO constructMessageDTO(Message message);
+    List<Message> getMessageBefore(int messageId, int messageCount, int roomId);
 }

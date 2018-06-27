@@ -32,6 +32,9 @@ public class ChatController {
             message.setSendTime(System.currentTimeMillis());
             WxSessionToken sessionToken = (WxSessionToken) accessor.getUser();
             message.setOpenId(sessionToken.getDetails().getOpenid());
+            if (message.getOrderDetail() != null) {
+                message.setDetailId(message.getOrderDetail().getId());
+            }
             messageService.insertMessage(message);
             MessageDTO messageDTO = messageService.constructMessageDTO(message);
             return ResultGenerator.genSuccessResult(messageDTO);

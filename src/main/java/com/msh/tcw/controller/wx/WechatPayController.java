@@ -57,7 +57,7 @@ public class WechatPayController {
 
     @PostMapping("/showtime/order")
     public Result showtimeOrder(@RequestBody ShowtimeDTO showtime) {
-        Order showtimeOrder = orderService.createShowtimeOrder(showtime.getPrice(), showtime.getTime(), showtime.getRoomId(), showtime.getBlessing());
+        Order showtimeOrder = orderService.createShowtimeOrder(showtime.getPrice(), showtime.getTime(), showtime.getRoomId(), showtime.getBlessing(), showtime.getType(), showtime.getSrc());
         UnifiedorderResult result = orderService.createWechatUnifiedOrder(showtimeOrder.getTotalMoney(), "10.254.86.200", showtimeOrder.getOutTradeNo());
         OrderDTO orderDTO = new OrderDTO(showtimeOrder, wechatService.genWxPaymentDTO(result));
         return ResultGenerator.genSuccessResult(orderDTO);

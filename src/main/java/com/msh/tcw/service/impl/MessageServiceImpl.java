@@ -50,6 +50,11 @@ public class MessageServiceImpl implements MessageService {
         return messageDTO;
     }
 
+    @Override
+    public List<Message> getMessageBefore(int messageId, int messageCount, int roomId) {
+        return messageMapper.findMessageBeforeId(messageId, messageCount, roomId);
+    }
+
     private List<MessageDTO> constructMessageDTOList(List<Message> messages) {
         Map<String, WxUser> userMap = new HashMap<>(64);
         List<MessageDTO> messageDTOs = new ArrayList<>(messages.size());

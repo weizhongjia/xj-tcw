@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Order createShowtimeOrder(int money, int time, int roomId, String blessing, ShowtimeType type, String src) {
-        Order order = new Order(OrderType.SHOWTIME, null, null, time, null, money, roomId, blessing);
+        Order order = new Order(OrderType.SHOWTIME, null, null, time, 1, money, roomId, blessing);
         order.setShowtimeSrc(src);
         order.setShowtimeType(type);
         createOrder(order);

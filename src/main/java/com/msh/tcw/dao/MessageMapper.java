@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface MessageMapper extends Mapper<Message> {
     List<Message> findMessageByRoomIdAndTime(@Param("roomId") int roomId, @Param("lastTime") long lastTime);
+
+    List<Message> findMessageBeforeId(@Param("messageId") int messageId, @Param("messageCount") int messageCount, @Param("roomId") int roomId);
 }
