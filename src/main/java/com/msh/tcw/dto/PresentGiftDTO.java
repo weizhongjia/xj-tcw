@@ -8,4 +8,7 @@ public class PresentGiftDTO {
     private int number;
     private int roomId;
     private String blessing;
+    private String gif;
+    private String avatar;
+    private String name;
 }

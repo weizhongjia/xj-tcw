@@ -24,11 +24,8 @@ public class Order {
     private String blessing;
     private String showtimeSrc;
     private ShowtimeType showtimeType;
-    @TableField(exist=false)
     private String giftName;
-    @TableField(exist=false)
     private String giftGif;
-    @TableField(exist=false)
     private String giftAvatar;
 
     public Order() {

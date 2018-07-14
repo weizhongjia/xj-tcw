@@ -51,8 +51,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<Message> getMessageBefore(int messageId, int messageCount, int roomId) {
-        return messageMapper.findMessageBeforeId(messageId, messageCount, roomId);
+    public List<MessageDTO> getMessageBefore(int messageId, int messageCount, int roomId) {
+        return constructMessageDTOList(messageMapper.findMessageBeforeId(messageId, messageCount, roomId));
     }
 
     private List<MessageDTO> constructMessageDTOList(List<Message> messages) {

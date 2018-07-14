@@ -7,6 +7,9 @@
     <result column="openid" jdbcType="VARCHAR" property="openid" />
     <result column="orderType" jdbcType="VARCHAR" property="orderType" />
     <result column="giftId" jdbcType="INTEGER" property="giftId" />
+    <result column="giftGif" jdbcType="VARCHAR" property="giftGif" />
+    <result column="giftAvatar" jdbcType="VARCHAR" property="giftAvatar" />
+    <result column="giftName" jdbcType="VARCHAR" property="giftName" />
     <result column="price" jdbcType="INTEGER" property="price" />
     <result column="totalMoney" jdbcType="INTEGER" property="totalMoney" />
     <result column="number" jdbcType="INTEGER" property="number" />
@@ -17,4 +20,29 @@
     <result column="showtime_type" jdbcType="VARCHAR" property="showtimeType" />
     <result column="showtime_src" jdbcType="VARCHAR" property="showtimeSrc" />
   </resultMap>
+
+  <resultMap id="VideoResultMap" type="com.msh.tcw.dto.VideoDTO">
+    <result column="id" jdbcType="INTEGER" property="orderId" />
+    <result column="room_id" jdbcType="INTEGER" property="roomId" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="showtime_src" jdbcType="VARCHAR" property="showtimeSrc" />
+    <result column="blessing" jdbcType="VARCHAR" property="blessing" />
+    <result column="room_name" jdbcType="VARCHAR" property="roomName" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickName" />
+    <result column="avatarUrl" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="room_entered" jdbcType="VARCHAR" property="roomEntered" />
+  </resultMap>
+
+  <select id="findHistoryVideo" resultMap="VideoResultMap">
+    SELECT o.id, o.room_id, o.showtime_src, o.blessing, o.openid,
+          r.room_name,
+          u.nickName, u.avatarUrl,
+          ru.openid AS room_entered
+    FROM user_order o
+    LEFT JOIN wx_room r ON o.room_id = r.id
+    LEFT JOIN wx_user u ON o.openid = u.openid
+    LEFT JOIN room_user ru ON o.room_id = ru.room_id AND ru.openid = #{openid}
+    WHERE o.id &lt; #{orderId} AND order_type = 'SHOWTIME' AND showtime_type = 'VIDEO' AND showtime_src IS NOT NULL
+    ORDER BY id DESC LIMIT #{pageSize}
+  </select>
 </mapper>

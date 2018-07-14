@@ -23,15 +23,15 @@
 
   <select id="findMessageByRoomIdAndTime" resultMap="MessageResultMap">
     select m.id, m.type, m.open_id, m.send_time, m.room_id, m.detail, m.detail_id,
-     o.gift_id, o.price, o.number, o.cost_time, o.order_type, o.total_money, o.blessing
+     o.gift_id, o.price, o.number, o.cost_time, o.order_type, o.total_money, o.blessing, o.gift_name, o.gift_avatar, o.gift_gif
      from message m left join user_order o on m.detail_id = o.id where send_time > #{lastTime} AND m.room_id = #{roomId} order by m.id
   </select>
 
   <select id="findMessageBeforeId" resultMap="MessageResultMap">
     select id, type, open_id, send_time, room_id, detail, detail_id,
-      gift_id, price, number, cost_time, order_type, total_money, blessing from (
+      gift_id, price, number, cost_time, order_type, total_money, blessing, gift_name, gift_avatar, gift_gif from (
       select m.id, m.type, m.open_id, m.send_time, m.room_id, m.detail, m.detail_id,
-      o.gift_id, o.price, o.number, o.cost_time, o.order_type, o.total_money, o.blessing
+      o.gift_id, o.price, o.number, o.cost_time, o.order_type, o.total_money, o.blessing, o.gift_name, o.gift_avatar, o.gift_gif
       from message m left join user_order o on m.detail_id = o.id where m.id &lt; #{messageId} AND m.room_id = #{roomId} ORDER BY m.id DESC LIMIT #{messageCount}
     ) t ORDER BY ID
   </select>

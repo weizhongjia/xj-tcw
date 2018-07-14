@@ -2,6 +2,7 @@ package com.msh.tcw.controller.wx;
 
 import com.msh.tcw.core.Result;
 import com.msh.tcw.core.ResultGenerator;
+import com.msh.tcw.dto.MessageDTO;
 import com.msh.tcw.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,7 @@ public class MessageController {
     private MessageService messageService;
 
     @GetMapping("/{roomId}/before/{messageId}/{messageCount}")
-    public Result getMessageBefore(@PathVariable int messageId, @PathVariable int messageCount, @PathVariable int roomId){
+    public Result<MessageDTO> getMessageBefore(@PathVariable int messageId, @PathVariable int messageCount, @PathVariable int roomId){
         return ResultGenerator.genSuccessResult(messageService.getMessageBefore(messageId, messageCount, roomId));
     }
 

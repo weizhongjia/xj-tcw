@@ -11,4 +11,5 @@ import java.util.List;
 public interface RedpackSendHistoryMapper extends Mapper<RedpackSendHistory> {
     int insertBatch(List<RedpackSendHistory> list);
     List<RedpackSendHistory> selectRedpacksAccepted(@Param("redpackId")int redpackId, @Param("status")RedpackStatus status);
+    int countUserAccount(String openid);
 }

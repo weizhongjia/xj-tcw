@@ -8,6 +8,7 @@ import com.msh.tcw.domain.enums.RedpackStatus;
 import com.msh.tcw.domain.enums.ShowtimeType;
 import com.msh.tcw.domain.enums.WxOrderStatus;
 import com.msh.tcw.dto.RedpackDTO;
+import com.msh.tcw.dto.VideoDTO;
 import com.msh.tcw.security.WxSession;
 import com.msh.tcw.security.WxSessionToken;
 import com.msh.tcw.service.OrderService;
@@ -39,9 +40,12 @@ public class OrderServiceImpl implements OrderService{
     private RedpackSendLockMapper redpackSendLockMapper;
 
     @Override
-    public Order createGiftOrder(int giftId, int number, int roomId, String blessing) {
+    public Order createGiftOrder(int giftId, int number, int roomId, String blessing, String gif, String avatar, String name) {
         Gift gift = giftMapper.selectById(giftId);
         Order order = new Order(OrderType.GIFT, giftId, gift.getPrice(), gift.getCostTime() * number, number, gift.getPrice() * number, roomId, blessing);
+        order.setGiftGif(gif);
+        order.setGiftAvatar(avatar);
+        order.setGiftName(name);
         createOrder(order);
         return order;
     }
@@ -128,6 +132,16 @@ public class OrderServiceImpl implements OrderService{
         WxOrder wxOrderDO = new WxOrder(outTradeNo, session.getOpenid(), WxOrderStatus.CREATED.toString(), money);
         wxOrderMapper.insert(wxOrderDO);
         return wechatService.payUnifiedorder(money, ip, outTradeNo);
+    }
+
+    @Override
+    public List<VideoDTO> getHistoryVideos(int orderId, int pageSize) {
+        return orderMapper.findHistoryVideo(orderId, SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString(), pageSize);
+    }
+
+    @Override
+    public int getUserAccount() {
+        return redpackSendHistoryMapper.countUserAccount(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
     }
 
     private static double getRandomMoney(RedPackage _redPackage) {

@@ -42,4 +42,8 @@
     where redpack_id = #{redpackId} and status = #{status}
   </select>
 
+  <select id="countUserAccount" resultType="java.lang.Integer">
+    SELECT SUM(money) FROM redpack_send_history WHERE openid = #{openid} AND status = 'ACCEPTED'
+  </select>
+
 </mapper>

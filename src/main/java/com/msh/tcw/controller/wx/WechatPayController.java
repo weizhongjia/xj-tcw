@@ -6,6 +6,7 @@ import com.msh.tcw.domain.Order;
 import com.msh.tcw.dto.*;
 import com.msh.tcw.service.OrderService;
 import com.msh.tcw.service.WechatService;
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class WechatPayController {
 
     @PostMapping("/gift/order")
     public Result payUnifiedorder(@RequestBody PresentGiftDTO pay, ServletRequest request){
-        Order giftOrder = orderService.createGiftOrder(pay.getGiftId(), pay.getNumber(), pay.getRoomId(), pay.getBlessing());
+        Order giftOrder = orderService.createGiftOrder(pay.getGiftId(), pay.getNumber(), pay.getRoomId(), pay.getBlessing(), pay.getGif(), pay.getAvatar(), pay.getName());
         UnifiedorderResult result = orderService.createWechatUnifiedOrder(giftOrder.getTotalMoney(), "10.254.86.200", giftOrder.getOutTradeNo());
         OrderDTO orderDTO = new OrderDTO(giftOrder, wechatService.genWxPaymentDTO(result));
         return ResultGenerator.genSuccessResult(orderDTO);
@@ -61,5 +62,10 @@ public class WechatPayController {
         UnifiedorderResult result = orderService.createWechatUnifiedOrder(showtimeOrder.getTotalMoney(), "10.254.86.200", showtimeOrder.getOutTradeNo());
         OrderDTO orderDTO = new OrderDTO(showtimeOrder, wechatService.genWxPaymentDTO(result));
         return ResultGenerator.genSuccessResult(orderDTO);
+    }
+
+    @GetMapping("/account")
+    public Result<Integer> getUserAccount(){
+        return ResultGenerator.genSuccessResult(orderService.getUserAccount());
     }
 }
