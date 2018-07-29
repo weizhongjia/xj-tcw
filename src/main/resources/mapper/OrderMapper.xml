@@ -30,12 +30,13 @@
     <result column="room_name" jdbcType="VARCHAR" property="roomName" />
     <result column="nickName" jdbcType="VARCHAR" property="nickName" />
     <result column="avatarUrl" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="share_image" jdbcType="VARCHAR" property="shareImage" />
     <result column="room_entered" jdbcType="VARCHAR" property="roomEntered" />
   </resultMap>
 
   <select id="findHistoryVideo" resultMap="VideoResultMap">
     SELECT o.id, o.room_id, o.showtime_src, o.blessing, o.openid,
-          r.room_name,
+          r.room_name, r.share_image,
           u.nickName, u.avatarUrl,
           ru.openid AS room_entered
     FROM user_order o

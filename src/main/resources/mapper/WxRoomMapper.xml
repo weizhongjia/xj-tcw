@@ -11,5 +11,6 @@
     <result column="createUser" jdbcType="VARCHAR" property="createUser" />
     <result column="bgMovie" jdbcType="VARCHAR" property="bgMovie" />
     <result column="bgAudio" jdbcType="VARCHAR" property="bgAudio" />
+    <result column="shareImage" jdbcType="VARCHAR" property="shareImage" />
   </resultMap>
 </mapper>

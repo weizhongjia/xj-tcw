@@ -125,3 +125,21 @@ ALTER TABLE `order` ADD `order_type` VARCHAR(10) NOT NULL;
 ALTER TABLE `order` ADD `total_money` INT(11) DEFAULT NULL;
 ALTER TABLE `room_bg_image` RENAME TO `room_image`;
 ALTER TABLE `order` RENAME TO `user_order`;
+ALTER TABLE `user_order` ADD `blessing` VARCHAR(255) DEFAULT NULL;
+CREATE TABLE `room_user` (
+  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `openid` VARCHAR(60) NOT NULL ,
+  `room_id` INT(11) NOT NULL ,
+  `status` VARCHAR(10) NOT NULL ,
+  `create_time` BIGINT NOT NULL ,
+  `update_time` BIGINT DEFAULT NULL,
+    PRIMARY KEY (`id`),
+  UNIQUE KEY `room_user_unique_id` (`room_id`,`openid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `room_user` ADD `session_id` VARCHAR(255) NOT NULL ;
+ALTER TABLE `user_order` ADD `showtime_type` VARCHAR(10) DEFAULT NULL;
+ALTER TABLE `user_order` ADD `showtime_src` VARCHAR(255) DEFAULT NULL;
+ALTER TABLE `user_order` ADD `gift_name` VARCHAR(100) DEFAULT NULL;
+ALTER TABLE `user_order` ADD `gift_gif` VARCHAR(255) DEFAULT NULL;
+ALTER TABLE `user_order` ADD `gift_avatar` VARCHAR(255) DEFAULT NULL;
+ALTER TABLE `wx_room` ADD `share_image` VARCHAR(255) DEFAULT NULL;

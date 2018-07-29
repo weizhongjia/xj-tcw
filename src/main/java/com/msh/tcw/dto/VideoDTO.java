@@ -13,4 +13,5 @@ public class VideoDTO {
     private String roomName;
     private String avatarUrl;
     private String roomEntered;
+    private String shareImage;
 }

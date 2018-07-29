@@ -25,4 +25,6 @@ public class Room {
     private String bgMovie;
 
     private String bgAudio;
+
+    private String shareImage;
 }
