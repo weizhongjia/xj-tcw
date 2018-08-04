@@ -1,6 +1,5 @@
 package com.msh.tcw.dto;
 
-import com.msh.tcw.domain.GiftMessageDetail;
 import com.msh.tcw.domain.Order;
 import lombok.Data;
 

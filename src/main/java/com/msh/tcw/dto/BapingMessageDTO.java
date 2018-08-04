@@ -5,6 +5,7 @@ import com.msh.tcw.domain.GiftMessageDetail;
 import com.msh.tcw.domain.Message;
 import com.msh.tcw.domain.Order;
 import com.msh.tcw.domain.WxUser;
+import com.msh.tcw.domain.enums.ShowtimeType;
 import lombok.Data;
 
 import static com.msh.tcw.domain.enums.MessageType.GIFT;
@@ -53,13 +54,25 @@ public class BapingMessageDTO {
         this.nickname = user.getNickname();
         this.sex = user.getGender()?"1":"0";
         this.type = message.getType().toString().toLowerCase();
+        Order detail = message.getOrderDetail();
         switch (message.getType()) {
             case GIFT:
-                Order detail = message.getOrderDetail();
                 this.extend_params = new GiftExtendParams(detail);
                 this.bp_time = String.valueOf(detail.getCostTime());
                 this.content = detail.getBlessing();
                 break;
+            case SHOWTIME:
+                this.type = "bp";
+                this.bp_time = String.valueOf(detail.getCostTime());
+                if (detail.getShowtimeType().equals(ShowtimeType.IMAGE)) {
+                    this.image = detail.getShowtimeSrc();
+                    this.extend_params = new ShowtimeExtendParams();
+                } else if (ShowtimeType.VIDEO.equals(detail.getShowtimeType())) {
+                    ShowtimeExtendParams params = new ShowtimeExtendParams();
+                    params.setVideo(detail.getShowtimeSrc());
+                    this.extend_params = params;
+                }
+                this.content = detail.getBlessing();
             default:
                 break;
         }

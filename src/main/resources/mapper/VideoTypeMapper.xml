@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msh.tcw.dao.VideoTypeMapper">
+  <resultMap id="BaseResultMap" type="com.msh.tcw.domain.VideoType">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="des" jdbcType="VARCHAR" property="des" />
+  </resultMap>
+
+  <resultMap id="VideoResultMap" type="com.msh.tcw.domain.Video">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="src" jdbcType="VARCHAR" property="src" />
+    <result column="image_src" jdbcType="VARCHAR" property="imageSrc" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
+  </resultMap>
+
+  <select id="findAllVideoType" resultMap="BaseResultMap">
+    SELECT id, type, des FROM video_type
+  </select>
+
+  <select id="findVideoByType" resultMap="VideoResultMap">
+    SELECT id, src, image_src, create_time, title, type_id
+    FROM video
+    WHERE type_id = #{typeId} AND id &lt; #{id}
+    ORDER BY id DESC
+    LIMIT #{size}
+  </select>
+
+</mapper>
