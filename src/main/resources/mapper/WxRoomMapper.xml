@@ -13,4 +13,25 @@
     <result column="bgAudio" jdbcType="VARCHAR" property="bgAudio" />
     <result column="shareImage" jdbcType="VARCHAR" property="shareImage" />
   </resultMap>
+
+  <resultMap id="RoomMap" type="com.msh.tcw.domain.Room">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="room_name" jdbcType="VARCHAR" property="roomName" />
+    <result column="start_time" jdbcType="BIGINT" property="startTime" />
+    <result column="end_time" jdbcType="BIGINT" property="endTime" />
+    <result column="bg_movie" jdbcType="VARCHAR" property="bgMovie" />
+    <result column="bg_audio" jdbcType="VARCHAR" property="bgAudio" />
+    <result column="share_image" jdbcType="VARCHAR" property="shareImage" />
+  </resultMap>
+
+  <select id="findUserRoom" resultMap="RoomMap">
+    SELECT r.id,
+    r.room_name, r.share_image,
+    r.start_time, r.end_time,
+    r.bg_movie, r.bg_audio
+    FROM room_user u
+    LEFT JOIN wx_room r ON u.room_id = r.id
+    WHERE u.openid = #{openid} AND u.room_id &lt; #{roomId}
+    ORDER BY u.room_id DESC LIMIT #{pageSize}
+  </select>
 </mapper>

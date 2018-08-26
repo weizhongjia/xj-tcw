@@ -20,4 +20,6 @@ public interface WxRoomService extends Service<Room> {
     void upsertRoomUser(String openid, int roomId, RoomUserStatus status, String sessionId);
 
     void leaveRoom(String openid, String sessionId);
+
+    List<Room> findUserRoom(int roomId, int pageSize);
 }

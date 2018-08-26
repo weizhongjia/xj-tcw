@@ -13,6 +13,7 @@ import com.msh.tcw.domain.enums.RoomUserStatus;
 import com.msh.tcw.service.WxRoomService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,6 +74,11 @@ public class WxRoomServiceImpl extends AbstractService<Room> implements WxRoomSe
         if (affected != 1) {
             log.error("用户离开房间时出错，用户：{}", openid);
         }
+    }
+
+    @Override
+    public List<Room> findUserRoom(int roomId, int pageSize) {
+        return wxRoomMapper.findUserRoom(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString(), roomId, pageSize);
     }
 
 }

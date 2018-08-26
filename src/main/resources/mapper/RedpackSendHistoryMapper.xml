@@ -43,7 +43,7 @@
   </select>
 
   <select id="countUserAccount" resultType="java.lang.Integer">
-    SELECT SUM(money) FROM redpack_send_history WHERE openid = #{openid} AND status = 'ACCEPTED'
+    SELECT IFNULL(SUM(money), 0) FROM redpack_send_history WHERE openid = #{openid} AND status = 'ACCEPTED'
   </select>
 
 </mapper>
